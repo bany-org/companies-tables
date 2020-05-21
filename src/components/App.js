@@ -11,7 +11,7 @@ function App() {
         10
     );
     const [offset, changeOffset] = useState(0);
-    const [sortProperty, changeSortProperty] = useState("id");
+    const [sortProperty, changeSortProperty] = useState("ID");
     const [sortDirection, changeSortDirection] = useState("DESC");
 
     useEffect(() => {
@@ -79,8 +79,8 @@ function App() {
 
     const sortCompanies = (property, direction) => {
         switch (property) {
-            case "id":
-                return direction === "DESC"
+            case "ID":
+                return direction
                     ? displayedCompanies
                           .sort((a, b) => (a.id > b.id ? 1 : -1))
                           .slice(offset, offset + displayedElementsNumber)
@@ -88,11 +88,45 @@ function App() {
                           .sort((a, b) => (a.id < b.id ? 1 : -1))
                           .slice(offset, offset + displayedElementsNumber);
 
+            case "NAME":
+                return direction
+                    ? displayedCompanies
+                          .sort((a, b) => (a.name < b.name ? 1 : -1))
+                          .slice(offset, offset + displayedElementsNumber)
+                    : displayedCompanies
+                          .sort((a, b) => (a.name > b.name ? 1 : -1))
+                          .slice(offset, offset + displayedElementsNumber);
+
+            case "CITY":
+                return direction
+                    ? displayedCompanies
+                          .sort((a, b) => (a.city < b.city ? 1 : -1))
+                          .slice(offset, offset + displayedElementsNumber)
+                    : displayedCompanies
+                          .sort((a, b) => (a.city > b.city ? 1 : -1))
+                          .slice(offset, offset + displayedElementsNumber);
+
+            case "TOT_INC":
+                return direction
+                    ? displayedCompanies
+                          .sort((a, b) => (a.suma > b.suma ? 1 : -1))
+                          .slice(offset, offset + displayedElementsNumber)
+                    : displayedCompanies
+                          .sort((a, b) => (a.suma < b.suma ? 1 : -1))
+                          .slice(offset, offset + displayedElementsNumber);
+
+            case "AVG_INC":
+                return direction
+                    ? displayedCompanies
+                          .sort((a, b) => (a.avrg > b.avrg ? 1 : -1))
+                          .slice(offset, offset + displayedElementsNumber)
+                    : displayedCompanies
+                          .sort((a, b) => (a.avrg < b.avrg ? 1 : -1))
+                          .slice(offset, offset + displayedElementsNumber);
+
             default:
                 return displayedCompanies;
         }
-        // const comp = displayedCompanies.sort((a, b) => (a.suma < b.suma ? 1 : -1));
-        // console.log("posortowane", comp);
     };
 
     return (
@@ -118,13 +152,46 @@ function App() {
                 <table>
                     <thead>
                         <tr>
-                            <td onClick={() => changeSortDirection("ASC")}>
+                            <td
+                                onClick={() => {
+                                    changeSortDirection(!sortDirection);
+                                    changeSortProperty("ID");
+                                }}
+                            >
                                 Id
                             </td>
-                            <td>Name</td>
-                            <td>City</td>
-                            <td>Total income</td>
-                            <td>Average income</td>
+                            <td
+                                onClick={() => {
+                                    changeSortDirection(!sortDirection);
+                                    changeSortProperty("NAME");
+                                }}
+                            >
+                                Name
+                            </td>
+                            <td
+                                onClick={() => {
+                                    changeSortDirection(!sortDirection);
+                                    changeSortProperty("CITY");
+                                }}
+                            >
+                                City
+                            </td>
+                            <td
+                                onClick={() => {
+                                    changeSortDirection(!sortDirection);
+                                    changeSortProperty("TOT_INC");
+                                }}
+                            >
+                                Total income
+                            </td>
+                            <td
+                                onClick={() => {
+                                    changeSortDirection(!sortDirection);
+                                    changeSortProperty("AVG_INC");
+                                }}
+                            >
+                                Average income
+                            </td>
                         </tr>
                     </thead>
                     <tbody>
