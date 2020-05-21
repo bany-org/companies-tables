@@ -91,37 +91,37 @@ function App() {
             case "NAME":
                 return direction
                     ? displayedCompanies
-                          .sort((a, b) => (a.name < b.name ? 1 : -1))
+                          .sort((a, b) => (a.name > b.name ? 1 : -1))
                           .slice(offset, offset + displayedElementsNumber)
                     : displayedCompanies
-                          .sort((a, b) => (a.name > b.name ? 1 : -1))
+                          .sort((a, b) => (a.name < b.name ? 1 : -1))
                           .slice(offset, offset + displayedElementsNumber);
 
             case "CITY":
                 return direction
                     ? displayedCompanies
-                          .sort((a, b) => (a.city < b.city ? 1 : -1))
+                          .sort((a, b) => (a.city > b.city ? 1 : -1))
                           .slice(offset, offset + displayedElementsNumber)
                     : displayedCompanies
-                          .sort((a, b) => (a.city > b.city ? 1 : -1))
+                          .sort((a, b) => (a.city < b.city ? 1 : -1))
                           .slice(offset, offset + displayedElementsNumber);
 
             case "TOT_INC":
                 return direction
                     ? displayedCompanies
-                          .sort((a, b) => (a.suma > b.suma ? 1 : -1))
+                          .sort((a, b) => (a.suma < b.suma ? 1 : -1))
                           .slice(offset, offset + displayedElementsNumber)
                     : displayedCompanies
-                          .sort((a, b) => (a.suma < b.suma ? 1 : -1))
+                          .sort((a, b) => (a.suma > b.suma ? 1 : -1))
                           .slice(offset, offset + displayedElementsNumber);
 
             case "AVG_INC":
                 return direction
                     ? displayedCompanies
-                          .sort((a, b) => (a.avrg > b.avrg ? 1 : -1))
+                          .sort((a, b) => (a.avrg < b.avrg ? 1 : -1))
                           .slice(offset, offset + displayedElementsNumber)
                     : displayedCompanies
-                          .sort((a, b) => (a.avrg < b.avrg ? 1 : -1))
+                          .sort((a, b) => (a.avrg > b.avrg ? 1 : -1))
                           .slice(offset, offset + displayedElementsNumber);
 
             default:
@@ -154,7 +154,11 @@ function App() {
                         <tr>
                             <td
                                 onClick={() => {
-                                    changeSortDirection(!sortDirection);
+                                    if (sortProperty === "ID") {
+                                        changeSortDirection(!sortDirection);
+                                    } else {
+                                        changeSortDirection(true);
+                                    }
                                     changeSortProperty("ID");
                                 }}
                             >
@@ -162,7 +166,11 @@ function App() {
                             </td>
                             <td
                                 onClick={() => {
-                                    changeSortDirection(!sortDirection);
+                                    if (sortProperty === "NAME") {
+                                        changeSortDirection(!sortDirection);
+                                    } else {
+                                        changeSortDirection(true);
+                                    }
                                     changeSortProperty("NAME");
                                 }}
                             >
@@ -170,7 +178,11 @@ function App() {
                             </td>
                             <td
                                 onClick={() => {
-                                    changeSortDirection(!sortDirection);
+                                    if (sortProperty === "CITY") {
+                                        changeSortDirection(!sortDirection);
+                                    } else {
+                                        changeSortDirection(true);
+                                    }
                                     changeSortProperty("CITY");
                                 }}
                             >
@@ -178,7 +190,11 @@ function App() {
                             </td>
                             <td
                                 onClick={() => {
-                                    changeSortDirection(!sortDirection);
+                                    if (sortProperty === "TOT_INC") {
+                                        changeSortDirection(!sortDirection);
+                                    } else {
+                                        changeSortDirection(true);
+                                    }
                                     changeSortProperty("TOT_INC");
                                 }}
                             >
@@ -186,7 +202,11 @@ function App() {
                             </td>
                             <td
                                 onClick={() => {
-                                    changeSortDirection(!sortDirection);
+                                    if (sortProperty === "AVG_INC") {
+                                        changeSortDirection(!sortDirection);
+                                    } else {
+                                        changeSortDirection(true);
+                                    }
                                     changeSortProperty("AVG_INC");
                                 }}
                             >
