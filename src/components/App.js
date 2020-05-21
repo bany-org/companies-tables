@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+import Table from "./Table/Table";
+
 function App() {
     const [isLoading, changeLoading] = useState(true);
     const [companies, updateCompanies] = useState([]);
@@ -9,6 +11,8 @@ function App() {
         10
     );
     const [offset, changeOffset] = useState(0);
+    const [sortProperty, changeSortProperty] = useState("id");
+    const [sortDirection, changeSortDirection] = useState("DESC");
 
     useEffect(() => {
         axios
@@ -24,13 +28,14 @@ function App() {
     }, []);
 
     useEffect(() => {
-        const selectedCompanies = companies
-            .sort((a, b) => a.id - b.id)
-            .slice(offset, offset + displayedElementsNumber);
+        changeLoading(true);
+        // const selectedCompanies = companies
+        //     .sort((a, b) => a.id - b.id)
+        //     .slice(offset, offset + displayedElementsNumber);
 
         axios
             .all(
-                selectedCompanies.map((elem) =>
+                companies.map((elem) =>
                     axios.get(
                         `https://recruitment.hal.skygate.io/incomes/${elem.id}`
                     )
@@ -41,7 +46,7 @@ function App() {
                     const companiesData = [...responses];
 
                     const updatedCompanies = companiesData.map((elem) => {
-                        const companyToUpdate = selectedCompanies.find(
+                        const companyToUpdate = companies.find(
                             (company) => company.id === elem.data.id
                         );
 
@@ -53,11 +58,6 @@ function App() {
                             (prev, curr) => parseFloat(prev) + parseFloat(curr)
                         );
 
-                        console.log("element month", elem.data);
-
-                        // const currentMonth
-                        // const lastMonthSum
-
                         const updated = Object.assign(companyToUpdate, {
                             suma: sum,
                             avrg: sum / elem.data.incomes.length,
@@ -67,14 +67,33 @@ function App() {
                     });
 
                     changeDisplayedCompanies(updatedCompanies);
+                    changeLoading(false);
                 })
             )
             .catch((errors) => {
                 // react on errors.
             });
-    }, [companies, offset, displayedElementsNumber]);
+    }, [companies]);
 
-    console.log("render", displayedCompanies);
+    console.log("pass to table", displayedCompanies);
+
+    const sortCompanies = (property, direction) => {
+        switch (property) {
+            case "id":
+                return direction === "DESC"
+                    ? displayedCompanies
+                          .sort((a, b) => (a.id > b.id ? 1 : -1))
+                          .slice(offset, offset + displayedElementsNumber)
+                    : displayedCompanies
+                          .sort((a, b) => (a.id < b.id ? 1 : -1))
+                          .slice(offset, offset + displayedElementsNumber);
+
+            default:
+                return displayedCompanies;
+        }
+        // const comp = displayedCompanies.sort((a, b) => (a.suma < b.suma ? 1 : -1));
+        // console.log("posortowane", comp);
+    };
 
     return (
         <div className="App">
@@ -95,13 +114,35 @@ function App() {
             </div>
 
             {isLoading && <h1>loading</h1>}
-            {!isLoading &&
-                displayedCompanies.map((elem) => (
-                    <p key={elem.id}>
-                        id:{elem.id} Income: {Number(elem.suma).toFixed(2)}{" "}
-                        średnia: {Number(elem.avrg).toFixed(2)}
-                    </p>
-                ))}
+            {!isLoading && (
+                <table>
+                    <thead>
+                        <tr>
+                            <td onClick={() => changeSortDirection("ASC")}>
+                                Id
+                            </td>
+                            <td>Name</td>
+                            <td>City</td>
+                            <td>Total income</td>
+                            <td>Average income</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {/* {sortCompanies()} */}
+                        {sortCompanies(sortProperty, sortDirection).map(
+                            (elem) => (
+                                <tr key={elem.id}>
+                                    <td>{elem.id}</td>
+                                    <td>{elem.name}</td>
+                                    <td>{elem.city}</td>
+                                    <td>{Number(elem.suma).toFixed(2)}</td>
+                                    <td>{Number(elem.avrg).toFixed(2)}</td>
+                                </tr>
+                            )
+                        )}
+                    </tbody>
+                </table>
+            )}
 
             <div>
                 <button
