@@ -10,22 +10,22 @@ const Bar = styled.div`
     width: 100%;
 `;
 
-const PaginationBar = ({ changeOffset, offset, displayedElementsNumber }) => {
+const PaginationBar = ({ changeOffset, offset, displayedCompaniesNumber }) => {
     return (
         <Bar>
             <button
-                onClick={() => changeOffset(offset - displayedElementsNumber)}
+                onClick={() => changeOffset(offset - displayedCompaniesNumber)}
             >
-                Prev {displayedElementsNumber}
+                Prev {displayedCompaniesNumber}
             </button>
             <div>
                 Page:
-                {parseInt(offset / displayedElementsNumber + 1.5)}
+                {parseInt(offset / displayedCompaniesNumber + 1.5)}
             </div>
             <button
-                onClick={() => changeOffset(offset + displayedElementsNumber)}
+                onClick={() => changeOffset(offset + displayedCompaniesNumber)}
             >
-                Next {displayedElementsNumber}
+                Next {displayedCompaniesNumber}
             </button>
         </Bar>
     );

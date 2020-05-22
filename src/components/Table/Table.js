@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Table = ({ displayedCompanies, offset, displayedElementsNumber }) => {
+const Table = ({ displayedCompanies, offset, displayedCompaniesNumber }) => {
     const [sortProperty, changeSortProperty] = useState("ID");
     const [sortDirection, changeSortDirection] = useState("DESC");
 
@@ -10,46 +10,46 @@ const Table = ({ displayedCompanies, offset, displayedElementsNumber }) => {
                 return direction
                     ? displayedCompanies
                           .sort((a, b) => (a.id > b.id ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber)
+                          .slice(offset, offset + displayedCompaniesNumber)
                     : displayedCompanies
                           .sort((a, b) => (a.id < b.id ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber);
+                          .slice(offset, offset + displayedCompaniesNumber);
 
             case "NAME":
                 return direction
                     ? displayedCompanies
                           .sort((a, b) => (a.name > b.name ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber)
+                          .slice(offset, offset + displayedCompaniesNumber)
                     : displayedCompanies
                           .sort((a, b) => (a.name < b.name ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber);
+                          .slice(offset, offset + displayedCompaniesNumber);
 
             case "CITY":
                 return direction
                     ? displayedCompanies
                           .sort((a, b) => (a.city > b.city ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber)
+                          .slice(offset, offset + displayedCompaniesNumber)
                     : displayedCompanies
                           .sort((a, b) => (a.city < b.city ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber);
+                          .slice(offset, offset + displayedCompaniesNumber);
 
             case "TOT_INC":
                 return direction
                     ? displayedCompanies
                           .sort((a, b) => (a.suma < b.suma ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber)
+                          .slice(offset, offset + displayedCompaniesNumber)
                     : displayedCompanies
                           .sort((a, b) => (a.suma > b.suma ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber);
+                          .slice(offset, offset + displayedCompaniesNumber);
 
             case "AVG_INC":
                 return direction
                     ? displayedCompanies
                           .sort((a, b) => (a.avrg < b.avrg ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber)
+                          .slice(offset, offset + displayedCompaniesNumber)
                     : displayedCompanies
                           .sort((a, b) => (a.avrg > b.avrg ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber);
+                          .slice(offset, offset + displayedCompaniesNumber);
 
             default:
                 return displayedCompanies;
@@ -130,8 +130,8 @@ const Table = ({ displayedCompanies, offset, displayedElementsNumber }) => {
                             <td>{offset + index + 1}</td>
                             <td>{elem.name}</td>
                             <td>{elem.city}</td>
-                            <td>{Number(elem.suma).toFixed(2)}</td>
-                            <td>{Number(elem.avrg).toFixed(2)}</td>
+                            <td>{elem.totalIncome}</td>
+                            <td>{elem.averageIncome}</td>
                             <td>TODO</td>
                         </tr>
                     )

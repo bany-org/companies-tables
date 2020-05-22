@@ -7,21 +7,19 @@ import TableHeader from "./TableHeader/TableHeader";
 
 function App() {
     const [isLoading, changeLoading] = useState(true);
-    const [companies, updateCompanies] = useState([]);
+    const [companiesList, updateCompaniesList] = useState([]);
     const [displayedCompanies, changeDisplayedCompanies] = useState([]);
-    const [displayedElementsNumber, changeDisplayedElementsNumber] = useState(
+    const [displayedCompaniesNumber, changeDisplayedCompaniesNumber] = useState(
         10
     );
     const [offset, changeOffset] = useState(0);
-    const [sortProperty, changeSortProperty] = useState("ID");
-    const [sortDirection, changeSortDirection] = useState("DESC");
 
     useEffect(() => {
+        changeLoading(true);
         axios
             .get(`https://recruitment.hal.skygate.io/companies`)
             .then((res) => {
-                updateCompanies(res.data);
-                changeDisplayedCompanies(res.data);
+                updateCompaniesList(res.data);
                 changeLoading(false);
             })
             .catch((err) => {
@@ -31,10 +29,9 @@ function App() {
 
     useEffect(() => {
         changeLoading(true);
-
         axios
             .all(
-                companies.map((elem) =>
+                companiesList.map((elem) =>
                     axios.get(
                         `https://recruitment.hal.skygate.io/incomes/${elem.id}`
                     )
@@ -42,24 +39,25 @@ function App() {
             )
             .then(
                 axios.spread((...responses) => {
-                    const companiesData = [...responses];
+                    const companiesIncomes = responses;
 
-                    const updatedCompanies = companiesData.map((elem) => {
-                        const companyToUpdate = companies.find(
+                    const updatedCompanies = companiesIncomes.map((elem) => {
+                        const companyToUpdate = companiesList.find(
                             (company) => company.id === elem.data.id
                         );
 
-                        const sumOfIncomes = elem.data.incomes.map(
-                            (income) => income.value
-                        );
-
-                        const sum = sumOfIncomes.reduce(
-                            (prev, curr) => parseFloat(prev) + parseFloat(curr)
-                        );
+                        const sumOfIncomes = elem.data.incomes
+                            .map((income) => income.value)
+                            .reduce(
+                                (prev, curr) =>
+                                    parseFloat(prev) + parseFloat(curr)
+                            );
 
                         const updated = Object.assign(companyToUpdate, {
-                            suma: sum,
-                            avrg: sum / elem.data.incomes.length,
+                            totalIncome: Number(sumOfIncomes).toFixed(2),
+                            averageIncome: Number(
+                                sumOfIncomes / elem.data.incomes.length
+                            ).toFixed(2),
                         });
 
                         return updated;
@@ -70,67 +68,16 @@ function App() {
                 })
             )
             .catch((errors) => {
-                // react on errors.
+                console.log(errors);
+                changeLoading(false);
             });
-    }, [companies]);
-
-    const sortCompanies = (property, direction) => {
-        switch (property) {
-            case "ID":
-                return direction
-                    ? displayedCompanies
-                          .sort((a, b) => (a.id > b.id ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber)
-                    : displayedCompanies
-                          .sort((a, b) => (a.id < b.id ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber);
-
-            case "NAME":
-                return direction
-                    ? displayedCompanies
-                          .sort((a, b) => (a.name > b.name ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber)
-                    : displayedCompanies
-                          .sort((a, b) => (a.name < b.name ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber);
-
-            case "CITY":
-                return direction
-                    ? displayedCompanies
-                          .sort((a, b) => (a.city > b.city ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber)
-                    : displayedCompanies
-                          .sort((a, b) => (a.city < b.city ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber);
-
-            case "TOT_INC":
-                return direction
-                    ? displayedCompanies
-                          .sort((a, b) => (a.suma < b.suma ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber)
-                    : displayedCompanies
-                          .sort((a, b) => (a.suma > b.suma ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber);
-
-            case "AVG_INC":
-                return direction
-                    ? displayedCompanies
-                          .sort((a, b) => (a.avrg < b.avrg ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber)
-                    : displayedCompanies
-                          .sort((a, b) => (a.avrg > b.avrg ? 1 : -1))
-                          .slice(offset, offset + displayedElementsNumber);
-
-            default:
-                return displayedCompanies;
-        }
-    };
+    }, [companiesList]);
 
     return (
         <div className="App">
             <TableHeader
-                changeDisplayedElementsNumber={changeDisplayedElementsNumber}
-                displayedElementsNumber={displayedElementsNumber}
+                changeDisplayedCompaniesNumber={changeDisplayedCompaniesNumber}
+                displayedCompaniesNumber={displayedCompaniesNumber}
             />
 
             {isLoading && <h1>loading</h1>}
@@ -138,14 +85,14 @@ function App() {
                 <Table
                     displayedCompanies={displayedCompanies}
                     offset={offset}
-                    displayedElementsNumber={displayedElementsNumber}
+                    displayedCompaniesNumber={displayedCompaniesNumber}
                 />
             )}
 
             <PaginationBar
                 changeOffset={changeOffset}
                 offset={offset}
-                displayedElementsNumber={displayedElementsNumber}
+                displayedCompaniesNumber={displayedCompaniesNumber}
             />
         </div>
     );

@@ -10,17 +10,14 @@ const HeaderBody = styled.div`
     width: 100%;
 `;
 
-const TableHeader = ({
-    changeDisplayedElementsNumber,
-    displayedElementsNumber,
-}) => {
+const TableHeader = ({ changeDisplayedCompaniesNumber }) => {
     return (
         <HeaderBody>
             ile na stronie:
-            <button onClick={() => changeDisplayedElementsNumber(10)}>
+            <button onClick={() => changeDisplayedCompaniesNumber(10)}>
                 10
             </button>
-            <button onClick={() => changeDisplayedElementsNumber(20)}>
+            <button onClick={() => changeDisplayedCompaniesNumber(20)}>
                 20
             </button>
         </HeaderBody>
