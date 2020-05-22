@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import Table from "./Table/Table";
+import PaginationBar from "./PaginationBar/PaginationBar";
+import TableHeader from "./TableHeader/TableHeader";
 
 function App() {
     const [isLoading, changeLoading] = useState(true);
@@ -29,9 +31,6 @@ function App() {
 
     useEffect(() => {
         changeLoading(true);
-        // const selectedCompanies = companies
-        //     .sort((a, b) => a.id - b.id)
-        //     .slice(offset, offset + displayedElementsNumber);
 
         axios
             .all(
@@ -74,8 +73,6 @@ function App() {
                 // react on errors.
             });
     }, [companies]);
-
-    console.log("pass to table", displayedCompanies);
 
     const sortCompanies = (property, direction) => {
         switch (property) {
@@ -131,21 +128,10 @@ function App() {
 
     return (
         <div className="App">
-            <div>
-                ile na stronie
-                <select
-                    onChange={(event) =>
-                        changeDisplayedElementsNumber(
-                            parseInt(event.target.value)
-                        )
-                    }
-                    value={displayedElementsNumber}
-                >
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                </select>
-            </div>
+            <TableHeader
+                changeDisplayedElementsNumber={changeDisplayedElementsNumber}
+                displayedElementsNumber={displayedElementsNumber}
+            />
 
             {isLoading && <h1>loading</h1>}
             {!isLoading && (
@@ -212,18 +198,19 @@ function App() {
                             >
                                 Average income
                             </td>
+                            <td>Last month income</td>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {sortCompanies()} */}
                         {sortCompanies(sortProperty, sortDirection).map(
-                            (elem) => (
+                            (elem, index) => (
                                 <tr key={elem.id}>
-                                    <td>{elem.id}</td>
+                                    <td>{offset + index + 1}</td>
                                     <td>{elem.name}</td>
                                     <td>{elem.city}</td>
                                     <td>{Number(elem.suma).toFixed(2)}</td>
                                     <td>{Number(elem.avrg).toFixed(2)}</td>
+                                    <td>TODO</td>
                                 </tr>
                             )
                         )}
@@ -231,22 +218,11 @@ function App() {
                 </table>
             )}
 
-            <div>
-                <button
-                    onClick={() =>
-                        changeOffset(offset - displayedElementsNumber)
-                    }
-                >
-                    Offset -{displayedElementsNumber}
-                </button>
-                <button
-                    onClick={() =>
-                        changeOffset(offset + displayedElementsNumber)
-                    }
-                >
-                    Offset +{displayedElementsNumber}
-                </button>
-            </div>
+            <PaginationBar
+                changeOffset={changeOffset}
+                offset={offset}
+                displayedElementsNumber={displayedElementsNumber}
+            />
         </div>
     );
 }
