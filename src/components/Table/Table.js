@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const Table = ({ companiesData, offset, displayNumber }) => {
     const [sortProperty, changeSortProperty] = useState("ID");
-    const [sortDirection, changeSortDirection] = useState("DESC");
+    const [sortDirection, changeSortDirection] = useState(true);
 
     const sortCompanies = (property, direction) => {
         switch (property) {
@@ -36,19 +36,27 @@ const Table = ({ companiesData, offset, displayNumber }) => {
             case "TOT_INC":
                 return direction
                     ? companiesData
-                          .sort((a, b) => (a.suma < b.suma ? 1 : -1))
+                          .sort((a, b) =>
+                              a.totalIncome < b.totalIncome ? 1 : -1
+                          )
                           .slice(offset, offset + displayNumber)
                     : companiesData
-                          .sort((a, b) => (a.suma > b.suma ? 1 : -1))
+                          .sort((a, b) =>
+                              a.totalIncome > b.totalIncome ? 1 : -1
+                          )
                           .slice(offset, offset + displayNumber);
 
             case "AVG_INC":
                 return direction
                     ? companiesData
-                          .sort((a, b) => (a.avrg < b.avrg ? 1 : -1))
+                          .sort((a, b) =>
+                              a.averageIncome < b.averageIncome ? 1 : -1
+                          )
                           .slice(offset, offset + displayNumber)
                     : companiesData
-                          .sort((a, b) => (a.avrg > b.avrg ? 1 : -1))
+                          .sort((a, b) =>
+                              a.averageIncome > b.averageIncome ? 1 : -1
+                          )
                           .slice(offset, offset + displayNumber);
 
             default:
