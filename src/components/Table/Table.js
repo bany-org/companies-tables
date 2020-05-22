@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const Table = ({ displayedCompanies, offset, displayedCompaniesNumber }) => {
+const Table = ({ companiesData, offset, displayNumber }) => {
     const [sortProperty, changeSortProperty] = useState("ID");
     const [sortDirection, changeSortDirection] = useState("DESC");
 
@@ -8,51 +8,51 @@ const Table = ({ displayedCompanies, offset, displayedCompaniesNumber }) => {
         switch (property) {
             case "ID":
                 return direction
-                    ? displayedCompanies
+                    ? companiesData
                           .sort((a, b) => (a.id > b.id ? 1 : -1))
-                          .slice(offset, offset + displayedCompaniesNumber)
-                    : displayedCompanies
+                          .slice(offset, offset + displayNumber)
+                    : companiesData
                           .sort((a, b) => (a.id < b.id ? 1 : -1))
-                          .slice(offset, offset + displayedCompaniesNumber);
+                          .slice(offset, offset + displayNumber);
 
             case "NAME":
                 return direction
-                    ? displayedCompanies
+                    ? companiesData
                           .sort((a, b) => (a.name > b.name ? 1 : -1))
-                          .slice(offset, offset + displayedCompaniesNumber)
-                    : displayedCompanies
+                          .slice(offset, offset + displayNumber)
+                    : companiesData
                           .sort((a, b) => (a.name < b.name ? 1 : -1))
-                          .slice(offset, offset + displayedCompaniesNumber);
+                          .slice(offset, offset + displayNumber);
 
             case "CITY":
                 return direction
-                    ? displayedCompanies
+                    ? companiesData
                           .sort((a, b) => (a.city > b.city ? 1 : -1))
-                          .slice(offset, offset + displayedCompaniesNumber)
-                    : displayedCompanies
+                          .slice(offset, offset + displayNumber)
+                    : companiesData
                           .sort((a, b) => (a.city < b.city ? 1 : -1))
-                          .slice(offset, offset + displayedCompaniesNumber);
+                          .slice(offset, offset + displayNumber);
 
             case "TOT_INC":
                 return direction
-                    ? displayedCompanies
+                    ? companiesData
                           .sort((a, b) => (a.suma < b.suma ? 1 : -1))
-                          .slice(offset, offset + displayedCompaniesNumber)
-                    : displayedCompanies
+                          .slice(offset, offset + displayNumber)
+                    : companiesData
                           .sort((a, b) => (a.suma > b.suma ? 1 : -1))
-                          .slice(offset, offset + displayedCompaniesNumber);
+                          .slice(offset, offset + displayNumber);
 
             case "AVG_INC":
                 return direction
-                    ? displayedCompanies
+                    ? companiesData
                           .sort((a, b) => (a.avrg < b.avrg ? 1 : -1))
-                          .slice(offset, offset + displayedCompaniesNumber)
-                    : displayedCompanies
+                          .slice(offset, offset + displayNumber)
+                    : companiesData
                           .sort((a, b) => (a.avrg > b.avrg ? 1 : -1))
-                          .slice(offset, offset + displayedCompaniesNumber);
+                          .slice(offset, offset + displayNumber);
 
             default:
-                return displayedCompanies;
+                return companiesData;
         }
     };
 

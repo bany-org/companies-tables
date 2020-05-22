@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import styled from "styled-components";
 
 import Table from "./Table/Table";
 import PaginationBar from "./PaginationBar/PaginationBar";
 import TableHeader from "./TableHeader/TableHeader";
 
+const AppBody = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+`;
+
 function App() {
     const [isLoading, changeLoading] = useState(true);
     const [companiesList, updateCompaniesList] = useState([]);
-    const [displayedCompanies, changeDisplayedCompanies] = useState([]);
-    const [displayedCompaniesNumber, changeDisplayedCompaniesNumber] = useState(
-        10
-    );
+    const [companiesData, updateCompaniesData] = useState([]);
+    const [displayNumber, changeDisplayNumber] = useState(10);
     const [offset, changeOffset] = useState(0);
 
     useEffect(() => {
@@ -63,7 +68,7 @@ function App() {
                         return updated;
                     });
 
-                    changeDisplayedCompanies(updatedCompanies);
+                    updateCompaniesData(updatedCompanies);
                     changeLoading(false);
                 })
             )
@@ -74,27 +79,27 @@ function App() {
     }, [companiesList]);
 
     return (
-        <div className="App">
+        <AppBody>
             <TableHeader
-                changeDisplayedCompaniesNumber={changeDisplayedCompaniesNumber}
-                displayedCompaniesNumber={displayedCompaniesNumber}
+                changeDisplayNumber={changeDisplayNumber}
+                displayNumber={displayNumber}
             />
 
             {isLoading && <h1>loading</h1>}
             {!isLoading && (
                 <Table
-                    displayedCompanies={displayedCompanies}
+                    companiesData={companiesData}
                     offset={offset}
-                    displayedCompaniesNumber={displayedCompaniesNumber}
+                    displayNumber={displayNumber}
                 />
             )}
 
             <PaginationBar
                 changeOffset={changeOffset}
                 offset={offset}
-                displayedCompaniesNumber={displayedCompaniesNumber}
+                displayNumber={displayNumber}
             />
-        </div>
+        </AppBody>
     );
 }
 
