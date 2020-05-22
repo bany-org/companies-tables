@@ -135,87 +135,11 @@ function App() {
 
             {isLoading && <h1>loading</h1>}
             {!isLoading && (
-                <table>
-                    <thead>
-                        <tr>
-                            <td
-                                onClick={() => {
-                                    if (sortProperty === "ID") {
-                                        changeSortDirection(!sortDirection);
-                                    } else {
-                                        changeSortDirection(true);
-                                    }
-                                    changeSortProperty("ID");
-                                }}
-                            >
-                                Id
-                            </td>
-                            <td
-                                onClick={() => {
-                                    if (sortProperty === "NAME") {
-                                        changeSortDirection(!sortDirection);
-                                    } else {
-                                        changeSortDirection(true);
-                                    }
-                                    changeSortProperty("NAME");
-                                }}
-                            >
-                                Name
-                            </td>
-                            <td
-                                onClick={() => {
-                                    if (sortProperty === "CITY") {
-                                        changeSortDirection(!sortDirection);
-                                    } else {
-                                        changeSortDirection(true);
-                                    }
-                                    changeSortProperty("CITY");
-                                }}
-                            >
-                                City
-                            </td>
-                            <td
-                                onClick={() => {
-                                    if (sortProperty === "TOT_INC") {
-                                        changeSortDirection(!sortDirection);
-                                    } else {
-                                        changeSortDirection(true);
-                                    }
-                                    changeSortProperty("TOT_INC");
-                                }}
-                            >
-                                Total income
-                            </td>
-                            <td
-                                onClick={() => {
-                                    if (sortProperty === "AVG_INC") {
-                                        changeSortDirection(!sortDirection);
-                                    } else {
-                                        changeSortDirection(true);
-                                    }
-                                    changeSortProperty("AVG_INC");
-                                }}
-                            >
-                                Average income
-                            </td>
-                            <td>Last month income</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {sortCompanies(sortProperty, sortDirection).map(
-                            (elem, index) => (
-                                <tr key={elem.id}>
-                                    <td>{offset + index + 1}</td>
-                                    <td>{elem.name}</td>
-                                    <td>{elem.city}</td>
-                                    <td>{Number(elem.suma).toFixed(2)}</td>
-                                    <td>{Number(elem.avrg).toFixed(2)}</td>
-                                    <td>TODO</td>
-                                </tr>
-                            )
-                        )}
-                    </tbody>
-                </table>
+                <Table
+                    displayedCompanies={displayedCompanies}
+                    offset={offset}
+                    displayedElementsNumber={displayedElementsNumber}
+                />
             )}
 
             <PaginationBar

@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-const PaginationBar = ({ changeOffset, offset, displayedElementsNumber }) => {
-    const Bar = styled.div`
-        display: flex;
-        justify-content: space-around;
-        background-color: lightblue;
-        margin: 10px;
-        padding: 10px;
-        width: 100%;
-    `;
+const Bar = styled.div`
+    display: flex;
+    justify-content: space-around;
+    background-color: lightblue;
+    margin: 10px;
+    padding: 10px;
+    width: 100%;
+`;
 
+const PaginationBar = ({ changeOffset, offset, displayedElementsNumber }) => {
     return (
         <Bar>
             <button
