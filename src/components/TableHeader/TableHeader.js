@@ -8,14 +8,8 @@ const HeaderBody = styled.div`
     padding: 10px;
 `;
 
-const TableHeader = ({ changeDisplayNumber }) => {
-    return (
-        <HeaderBody>
-            ile na stronie:
-            <button onClick={() => changeDisplayNumber(10)}>10</button>
-            <button onClick={() => changeDisplayNumber(20)}>20</button>
-        </HeaderBody>
-    );
+const TableHeader = () => {
+    return <HeaderBody>Header</HeaderBody>;
 };
 
 export default TableHeader;

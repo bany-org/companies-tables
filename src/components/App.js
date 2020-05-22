@@ -16,7 +16,7 @@ function App() {
     const [isLoading, changeLoading] = useState(true);
     const [companiesList, updateCompaniesList] = useState([]);
     const [companiesData, updateCompaniesData] = useState([]);
-    const [displayNumber, changeDisplayNumber] = useState(10);
+    const [displayNumber, changeDisplayNumber] = useState(20);
     const [offset, changeOffset] = useState(0);
 
     useEffect(() => {
@@ -97,7 +97,7 @@ function App() {
             <PaginationBar
                 changeOffset={changeOffset}
                 offset={offset}
-                displayNumber={displayNumber}
+                itemsNumber={companiesData.length}
             />
         </AppBody>
     );
