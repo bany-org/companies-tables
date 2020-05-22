@@ -8,6 +8,8 @@ const Table = ({ companiesData, offset, displayNumber }) => {
     const [firmy, zmienFirmy] = useState([...companiesData]);
 
     useEffect(() => {
+        console.log("wejście do effect po sorcie");
+
         let xxx = [...companiesData];
 
         if (filterProperty) {
@@ -51,109 +53,54 @@ const Table = ({ companiesData, offset, displayNumber }) => {
             : -1;
     };
 
+    const onSortChange = (sortProp) => {
+        if (sortProperty === sortProp) {
+            if (sortDirection === "ASC") {
+                changeSortDirection("DESC");
+            } else if (sortDirection === "DESC") {
+                changeSortDirection(null);
+                changeSortProperty(null);
+            } else {
+                changeSortDirection("ASC");
+            }
+        } else {
+            changeSortDirection("ASC");
+            changeSortProperty(sortProp);
+        }
+    };
+
+    const onFilterChange = (filterProp, filterVal) => {
+        changeFilterProperty(filterProp);
+        changeFiltePhrase(filterVal);
+    };
+
     return (
         <table>
             <thead>
                 <tr>
                     <td>Lp</td>
-                    <td
-                        onClick={() => {
-                            if (sortProperty === "name") {
-                                if (sortDirection === "ASC") {
-                                    changeSortDirection("DESC");
-                                } else if (sortDirection === "DESC") {
-                                    changeSortDirection(null);
-                                    changeSortProperty(null);
-                                } else {
-                                    changeSortDirection("ASC");
-                                }
-                            } else {
-                                changeSortDirection("ASC");
-                                changeSortProperty("name");
-                            }
-                        }}
-                    >
+                    <td onClick={() => onSortChange("name")}>
                         Name
+                        {sortProperty === "name" ? sortDirection : null}
                     </td>
-                    <td
-                        onClick={() => {
-                            if (sortProperty === "city") {
-                                if (sortDirection === "ASC") {
-                                    changeSortDirection("DESC");
-                                } else if (sortDirection === "DESC") {
-                                    changeSortDirection(null);
-                                    changeSortProperty(null);
-                                } else {
-                                    changeSortDirection("ASC");
-                                }
-                            } else {
-                                changeSortDirection("ASC");
-                                changeSortProperty("city");
-                            }
-                        }}
-                    >
+                    <td onClick={() => onSortChange("city")}>
                         City
+                        {sortProperty === "city" ? sortDirection : null}
                     </td>
-                    <td
-                        onClick={() => {
-                            if (sortProperty === "totalIncome") {
-                                if (sortDirection === "ASC") {
-                                    changeSortDirection("DESC");
-                                } else if (sortDirection === "DESC") {
-                                    changeSortDirection(null);
-                                    changeSortProperty(null);
-                                } else {
-                                    changeSortDirection("ASC");
-                                }
-                            } else {
-                                changeSortDirection("ASC");
-                                changeSortProperty("totalIncome");
-                            }
-                        }}
-                    >
-                        Total income
+                    <td onClick={() => onSortChange("totalIncome")}>
+                        Total Income
+                        {sortProperty === "totalIncome" ? sortDirection : null}
                     </td>
-                    <td
-                        onClick={() => {
-                            if (sortProperty === "averageIncome") {
-                                if (sortDirection === "ASC") {
-                                    changeSortDirection("DESC");
-                                } else if (sortDirection === "DESC") {
-                                    changeSortDirection(null);
-                                    changeSortProperty(null);
-                                } else {
-                                    changeSortDirection("ASC");
-                                }
-                            } else {
-                                changeSortDirection("ASC");
-                                changeSortProperty("averageIncome");
-                            }
-                        }}
-                    >
-                        Average income{" "}
+                    <td onClick={() => onSortChange("averageIncome")}>
+                        Average Income
                         {sortProperty === "averageIncome"
                             ? sortDirection
                             : null}
                     </td>
                     <td>Last month income</td>
-                    <td
-                        onClick={() => {
-                            if (sortProperty === "id") {
-                                if (sortDirection === "ASC") {
-                                    changeSortDirection("DESC");
-                                } else if (sortDirection === "DESC") {
-                                    changeSortDirection(null);
-                                    changeSortProperty(null);
-                                } else {
-                                    changeSortDirection("ASC");
-                                }
-                            } else {
-                                changeSortDirection("ASC");
-                                changeSortProperty("id");
-                            }
-                        }}
-                    >
-                        Id {sortProperty === "id" ? sortDirection : null}
+                    <td onClick={() => onSortChange("id")}>
+                        Id
+                        {sortProperty === "id" ? sortDirection : null}
                     </td>
                 </tr>
                 <tr>
@@ -161,41 +108,45 @@ const Table = ({ companiesData, offset, displayNumber }) => {
                     <td>
                         <input
                             type="text"
-                            onChange={(e) => {
-                                changeFilterProperty("name");
-                                changeFiltePhrase(e.target.value.toLowerCase());
-                            }}
+                            onChange={(e) =>
+                                onFilterChange(
+                                    "name",
+                                    e.target.value.toLocaleLowerCase()
+                                )
+                            }
                         />
                     </td>
                     <td>
                         <input
                             type="text"
-                            onChange={(e) => {
-                                changeFilterProperty("city");
-                                changeFiltePhrase(e.target.value.toLowerCase());
-                            }}
+                            onChange={(e) =>
+                                onFilterChange(
+                                    "city",
+                                    e.target.value.toLocaleLowerCase()
+                                )
+                            }
                         />
                     </td>
                     <td>
                         <input
                             type="text"
-                            onChange={(e) => {
-                                changeFilterProperty("totalIncome");
-                                changeFiltePhrase(
+                            onChange={(e) =>
+                                onFilterChange(
+                                    "totalIncome",
                                     parseInt(e.target.value) || 0
-                                );
-                            }}
+                                )
+                            }
                         />
                     </td>
                     <td>
                         <input
                             type="text"
-                            onChange={(e) => {
-                                changeFilterProperty("averageIncome");
-                                changeFiltePhrase(
+                            onChange={(e) =>
+                                onFilterChange(
+                                    "averageIncome",
                                     parseInt(e.target.value) || 0
-                                );
-                            }}
+                                )
+                            }
                         />
                     </td>
                     <td>
@@ -204,12 +155,12 @@ const Table = ({ companiesData, offset, displayNumber }) => {
                     <td>
                         <input
                             type="text"
-                            onChange={(e) => {
-                                changeFilterProperty("id");
-                                changeFiltePhrase(
+                            onChange={(e) =>
+                                onFilterChange(
+                                    "id",
                                     parseInt(e.target.value) || 0
-                                );
-                            }}
+                                )
+                            }
                         />
                     </td>
                 </tr>
