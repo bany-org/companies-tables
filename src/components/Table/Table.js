@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { unstable_renderSubtreeIntoContainer } from "react-dom";
 
 const Table = ({ companiesData, offset, displayNumber }) => {
     const [sortProperty, changeSortProperty] = useState(null);
@@ -9,13 +8,6 @@ const Table = ({ companiesData, offset, displayNumber }) => {
     const [firmy, zmienFirmy] = useState([...companiesData]);
 
     useEffect(() => {
-        console.log(
-            "zmiana filtrowania",
-            filterPhrase,
-            filterProperty,
-            sortProperty,
-            sortDirection
-        );
         let xxx = [...companiesData];
 
         if (filterProperty) {
@@ -34,94 +26,29 @@ const Table = ({ companiesData, offset, displayNumber }) => {
     }, [filterPhrase, filterProperty, sortDirection, sortProperty, offset]);
 
     const filterFunction = (comp) => {
-        console.log("filtrowanie", comp, filterPhrase, filterProperty);
+        console.log("filtrowanie", comp, typeof filterPhrase, filterProperty);
 
-        switch (filterProperty) {
-            case "id":
-                if (filterPhrase === 0) {
-                    return true;
-                }
-                return comp.id === filterPhrase;
+        if (filterPhrase === 0 || filterPhrase === "") {
+            return true;
+        }
 
-            case "name":
-                if (filterPhrase === "") {
-                    return true;
-                }
-                return comp.name.toLowerCase().includes(filterPhrase);
+        if (typeof filterPhrase === "number") {
+            return parseInt(comp[filterProperty]) === filterPhrase;
+        }
 
-            case "city":
-                if (filterPhrase === "") {
-                    return true;
-                }
-                return comp.city.toLowerCase().includes(filterPhrase);
-
-            case "totalIncome":
-                if (filterPhrase === 0) {
-                    return true;
-                }
-                return parseInt(comp.totalIncome) === filterPhrase;
-
-            case "averageIncome":
-                if (filterPhrase === 0) {
-                    return true;
-                }
-                return parseInt(comp.averageIncome) === filterPhrase;
-
-            default:
-                return true;
+        if (typeof filterPhrase === "string") {
+            return comp[filterProperty].toLowerCase().includes(filterPhrase);
         }
     };
 
     const sortFunction = (a, b) => {
-        switch (sortProperty) {
-            case "ID":
-                return sortDirection === "ASC"
-                    ? a.id > b.id
-                        ? 1
-                        : -1
-                    : a.id < b.id
-                    ? 1
-                    : -1;
-
-            case "NAME":
-                return sortDirection === "ASC"
-                    ? a.name > b.name
-                        ? 1
-                        : -1
-                    : a.name < b.name
-                    ? 1
-                    : -1;
-
-            case "CITY":
-                return sortDirection === "ASC"
-                    ? a.city > b.city
-                        ? 1
-                        : -1
-                    : a.city < b.city
-                    ? 1
-                    : -1;
-
-            case "TOT_INC":
-                return sortDirection === "ASC"
-                    ? a.totalIncome > b.totalIncome
-                        ? 1
-                        : -1
-                    : a.totalIncome < b.totalIncome
-                    ? 1
-                    : -1;
-
-            case "AVG_INC":
-                return sortDirection === "ASC"
-                    ? a.averageIncome > b.averageIncome
-                        ? 1
-                        : -1
-                    : a.averageIncome < b.averageIncome
-                    ? 1
-                    : -1;
-
-            default:
-                return true;
-        }
+        return sortDirection === "ASC"
+            ? a[sortProperty] > b[sortProperty]
+                ? 1
+                : -1
+            : a[sortProperty] < b[sortProperty]
+            ? 1
+            : -1;
     };
 
     return (
@@ -131,7 +58,7 @@ const Table = ({ companiesData, offset, displayNumber }) => {
                     <td>Lp</td>
                     <td
                         onClick={() => {
-                            if (sortProperty === "NAME") {
+                            if (sortProperty === "name") {
                                 if (sortDirection === "ASC") {
                                     changeSortDirection("DESC");
                                 } else if (sortDirection === "DESC") {
@@ -142,7 +69,7 @@ const Table = ({ companiesData, offset, displayNumber }) => {
                                 }
                             } else {
                                 changeSortDirection("ASC");
-                                changeSortProperty("NAME");
+                                changeSortProperty("name");
                             }
                         }}
                     >
@@ -150,7 +77,7 @@ const Table = ({ companiesData, offset, displayNumber }) => {
                     </td>
                     <td
                         onClick={() => {
-                            if (sortProperty === "CITY") {
+                            if (sortProperty === "city") {
                                 if (sortDirection === "ASC") {
                                     changeSortDirection("DESC");
                                 } else if (sortDirection === "DESC") {
@@ -161,7 +88,7 @@ const Table = ({ companiesData, offset, displayNumber }) => {
                                 }
                             } else {
                                 changeSortDirection("ASC");
-                                changeSortProperty("CITY");
+                                changeSortProperty("city");
                             }
                         }}
                     >
@@ -169,19 +96,26 @@ const Table = ({ companiesData, offset, displayNumber }) => {
                     </td>
                     <td
                         onClick={() => {
-                            if (sortProperty === "TOT_INC") {
-                                changeSortDirection(!sortDirection);
+                            if (sortProperty === "totalIncome") {
+                                if (sortDirection === "ASC") {
+                                    changeSortDirection("DESC");
+                                } else if (sortDirection === "DESC") {
+                                    changeSortDirection(null);
+                                    changeSortProperty(null);
+                                } else {
+                                    changeSortDirection("ASC");
+                                }
                             } else {
-                                changeSortDirection(true);
+                                changeSortDirection("ASC");
+                                changeSortProperty("totalIncome");
                             }
-                            changeSortProperty("TOT_INC");
                         }}
                     >
                         Total income
                     </td>
                     <td
                         onClick={() => {
-                            if (sortProperty === "AVG_INC") {
+                            if (sortProperty === "averageIncome") {
                                 if (sortDirection === "ASC") {
                                     changeSortDirection("DESC");
                                 } else if (sortDirection === "DESC") {
@@ -192,17 +126,19 @@ const Table = ({ companiesData, offset, displayNumber }) => {
                                 }
                             } else {
                                 changeSortDirection("ASC");
-                                changeSortProperty("AVG_INC");
+                                changeSortProperty("averageIncome");
                             }
                         }}
                     >
                         Average income{" "}
-                        {sortProperty === "AVG_INC" ? sortDirection : null}
+                        {sortProperty === "averageIncome"
+                            ? sortDirection
+                            : null}
                     </td>
                     <td>Last month income</td>
                     <td
                         onClick={() => {
-                            if (sortProperty === "ID") {
+                            if (sortProperty === "id") {
                                 if (sortDirection === "ASC") {
                                     changeSortDirection("DESC");
                                 } else if (sortDirection === "DESC") {
@@ -213,11 +149,11 @@ const Table = ({ companiesData, offset, displayNumber }) => {
                                 }
                             } else {
                                 changeSortDirection("ASC");
-                                changeSortProperty("ID");
+                                changeSortProperty("id");
                             }
                         }}
                     >
-                        Id {sortProperty === "ID" ? sortDirection : null}
+                        Id {sortProperty === "id" ? sortDirection : null}
                     </td>
                 </tr>
                 <tr>
@@ -253,7 +189,6 @@ const Table = ({ companiesData, offset, displayNumber }) => {
                     </td>
                     <td>
                         <input
-                            type="text"
                             type="text"
                             onChange={(e) => {
                                 changeFilterProperty("averageIncome");
