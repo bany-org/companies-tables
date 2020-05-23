@@ -14,7 +14,14 @@ const HeaderBody = styled.div`
 
 const HeaderElement = styled.div`
     display: flex;
+    align-items: center;
     width: 30%;
+`;
+
+const Info = styled.div`
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
 `;
 
 const ClearButton = styled.div`
@@ -48,26 +55,30 @@ const TableHeader = ({ clear, filterProp, filterPhr, sortProp, sortDir }) => {
             <HeaderElement>
                 <ClearButton onClick={clear}>
                     <ClearIcon />
-                    Clear filters
+                    <Info>Clear filters</Info>
                 </ClearButton>
             </HeaderElement>
             <HeaderElement>
                 <LoupIcon />
-                Filter: {!filterPhr && "none"}
-                {filterProp &&
-                    filterPhr !== "" &&
-                    `"${filterPhr}" in "${propertyNamesMap[filterProp]}"`}
+                <Info>
+                    Filter: {!filterPhr && "none"}
+                    {filterProp &&
+                        filterPhr !== "" &&
+                        `"${filterPhr}" in "${propertyNamesMap[filterProp]}"`}
+                </Info>
             </HeaderElement>
             <HeaderElement>
                 <DescendingIcon />
-                Sort: {!sortProp && "none"}
-                {sortProp && (
-                    <>
-                        <span>
-                            {`${directionNamesMap[sortDir]} in ${propertyNamesMap[sortProp]}`}
-                        </span>
-                    </>
-                )}
+                <Info>
+                    Sort: {!sortProp && "none"}
+                    {sortProp && (
+                        <>
+                            <span>
+                                {`${directionNamesMap[sortDir]} in ${propertyNamesMap[sortProp]}`}
+                            </span>
+                        </>
+                    )}
+                </Info>
             </HeaderElement>
         </HeaderBody>
     );

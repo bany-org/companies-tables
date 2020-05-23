@@ -8,41 +8,53 @@ const Bar = styled.div`
     padding: 10px;
 `;
 
+const Button = styled.button`
+    background-color: lightgreen;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    cursor: pointer;
+    border: 1px solid green;
+    &:hover {
+        background-color: green;
+    }
+`;
+
 const PaginationBar = ({ changeOffset, offset, itemsNumber }) => {
     return (
         <Bar>
-            <button
+            <Button
                 onClick={() => changeOffset(0)}
                 disabled={offset === 0 ? true : false}
             >
-                First page
-            </button>
-            <button
+                {"<< First page"}
+            </Button>
+            <Button
                 onClick={() => changeOffset(offset - 20)}
                 disabled={offset - 20 < 0 ? true : false}
             >
-                Prev
-            </button>
+                {"< Prev"}
+            </Button>
             <div>
                 Page:
-                {parseInt(offset / 20 + 1.5)}
-                of:
-                {Math.ceil(itemsNumber / 20)}
+                {parseInt(offset / 20 + 1.5)}/{Math.ceil(itemsNumber / 20)}
                 <br />
                 Results: {itemsNumber}
             </div>
-            <button
+            <Button
                 onClick={() => changeOffset(offset + 20)}
                 disabled={offset >= itemsNumber - 20 ? true : false}
             >
-                Next
-            </button>
-            <button
+                {"Next >"}
+            </Button>
+            <Button
                 onClick={() => changeOffset(itemsNumber - 20)}
                 disabled={offset >= itemsNumber - 20 ? true : false}
             >
-                Last
-            </button>
+                {"Last page >>"}
+            </Button>
         </Bar>
     );
 };
