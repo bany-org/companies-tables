@@ -4,6 +4,13 @@ import styled from "styled-components";
 const DataCell = styled.td`
     max-width: 100%;
     border-bottom: solid gray 1px;
+    text-align: left;
+`;
+
+const NumberDataCell = styled.td`
+    max-width: 100%;
+    border-bottom: solid gray 1px;
+    text-align: right;
 `;
 
 const TableContetRow = ({ company, index, offset }) => {
@@ -12,10 +19,10 @@ const TableContetRow = ({ company, index, offset }) => {
             <DataCell>{offset + index + 1}</DataCell>
             <DataCell>{company.name}</DataCell>
             <DataCell>{company.city}</DataCell>
-            <DataCell>{company.totalIncome}</DataCell>
-            <DataCell>{company.averageIncome}</DataCell>
-            <DataCell>{company.lastMonthIncome}</DataCell>
-            <DataCell>{company.id}</DataCell>
+            <NumberDataCell>{company.totalIncome}</NumberDataCell>
+            <NumberDataCell>{company.averageIncome}</NumberDataCell>
+            <NumberDataCell>{company.lastMonthIncome}</NumberDataCell>
+            <NumberDataCell>{company.id}</NumberDataCell>
         </tr>
     );
 };

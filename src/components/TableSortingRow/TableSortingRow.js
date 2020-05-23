@@ -13,97 +13,101 @@ const DataCell = styled.td`
     cursor: pointer;
     align-items: center;
     background-color: ${(props) => (props.active ? "greenyellow" : "")};
+    &:hover {
+        background-color: greenyellow;
+    }
+    text-align: center;
 `;
 
 const TableSortingRow = ({ onSortChange, sortProperty, sortDirection }) => {
     return (
         <tr>
-            <DataCell>
+            <td>
                 <DescendingIcon />
-            </DataCell>
+            </td>
             <DataCell
                 onClick={() => onSortChange("name")}
                 active={sortProperty === "name"}
             >
                 <span>Name</span>
-                <span>
+                {/* <span>
                     {sortProperty === "name" &&
                         (sortDirection === "ASC" ? (
                             <AscendingIcon />
                         ) : (
                             <DescendingIcon />
                         ))}
-                </span>
+                </span> */}
             </DataCell>
             <DataCell
                 onClick={() => onSortChange("city")}
                 active={sortProperty === "city"}
             >
                 <span>City</span>
-                <span>
+                {/* <span>
                     {sortProperty === "city" &&
                         (sortDirection === "ASC" ? (
                             <AscendingIcon />
                         ) : (
                             <DescendingIcon />
                         ))}
-                </span>
+                </span> */}
             </DataCell>
             <DataCell
                 onClick={() => onSortChange("totalIncome")}
                 active={sortProperty === "totalIncome"}
             >
                 <span>Total Income</span>
-                <span>
+                {/* <span>
                     {sortProperty === "totalIncome" &&
                         (sortDirection === "ASC" ? (
                             <AscendingIcon />
                         ) : (
                             <DescendingIcon />
                         ))}
-                </span>
+                </span> */}
             </DataCell>
             <DataCell
                 onClick={() => onSortChange("averageIncome")}
                 active={sortProperty === "averageIncome"}
             >
                 <span>Average Income</span>
-                <span>
+                {/* <span>
                     {sortProperty === "averageIncome" &&
                         (sortDirection === "ASC" ? (
                             <AscendingIcon />
                         ) : (
                             <DescendingIcon />
                         ))}
-                </span>
+                </span> */}
             </DataCell>
             <DataCell
                 onClick={() => onSortChange("lastMonthIncome")}
                 active={sortProperty === "lastMonthIncome"}
             >
                 <span>Last month totalIncome</span>
-                <span>
+                {/* <span>
                     {sortProperty === "lastMonthIncome" &&
                         (sortDirection === "ASC" ? (
                             <AscendingIcon />
                         ) : (
                             <DescendingIcon />
                         ))}
-                </span>
+                </span> */}
             </DataCell>
             <DataCell
                 onClick={() => onSortChange("id")}
                 active={sortProperty === "id"}
             >
                 <span>Id</span>
-                <span>
+                {/* <span>
                     {sortProperty === "id" &&
                         (sortDirection === "ASC" ? (
                             <AscendingIcon />
                         ) : (
                             <DescendingIcon />
                         ))}
-                </span>
+                </span> */}
             </DataCell>
         </tr>
     );

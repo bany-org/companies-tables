@@ -8,6 +8,10 @@ const AppBody = styled.div`
     display: flex;
     flex-direction: column;
     margin: 10px;
+
+    @media (max-width: 1024px) {
+        font-size: 10px;
+    }
 `;
 
 function App() {

@@ -11,6 +11,13 @@ const InputField = styled.input`
     border: solid 1px red;
     width: 100%;
     background-color: ${(props) => (props.active ? "pink" : "")};
+    &:hover {
+        background-color: pink;
+    }
+
+    @media (max-width: 1024px) {
+        font-size: 10px;
+    }
 `;
 
 const DataField = styled.td`
