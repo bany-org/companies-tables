@@ -17,6 +17,8 @@ const DataCell = styled.td`
         background-color: greenyellow;
     }
     text-align: center;
+    font-weight: 600;
+    box-shadow: 1px 1px #aaaaaa;
 `;
 
 const TableSortingRow = ({ onSortChange, sortProperty, sortDirection }) => {

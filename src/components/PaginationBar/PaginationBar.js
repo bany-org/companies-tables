@@ -20,6 +20,7 @@ const Button = styled.button`
     &:hover {
         background-color: green;
     }
+    box-shadow: 2px 2px #aaaaaa;
 `;
 
 const PaginationBar = ({ changeOffset, offset, itemsNumber }) => {

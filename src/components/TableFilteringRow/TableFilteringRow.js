@@ -14,6 +14,7 @@ const InputField = styled.input`
     &:hover {
         background-color: pink;
     }
+    box-shadow: 1px 1px #aa8888;
 
     @media (max-width: 1024px) {
         font-size: 10px;

@@ -1,6 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
+const IdCell = styled.td`
+    max-width: 100%;
+    border-bottom: solid gray 1px;
+    text-align: canter;
+    font-weight: 700;
+`;
+
 const DataCell = styled.td`
     max-width: 100%;
     border-bottom: solid gray 1px;
@@ -16,7 +23,7 @@ const NumberDataCell = styled.td`
 const TableContetRow = ({ company, index, offset }) => {
     return (
         <tr key={company.id}>
-            <DataCell>{offset + index + 1}</DataCell>
+            <IdCell>{offset + index + 1}</IdCell>
             <DataCell>{company.name}</DataCell>
             <DataCell>{company.city}</DataCell>
             <NumberDataCell>{company.totalIncome}</NumberDataCell>

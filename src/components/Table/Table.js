@@ -6,7 +6,7 @@ import TableSortingRow from "../TableSortingRow/TableSortingRow";
 import TableFilteringRow from "../TableFilteringRow/TableFilteringRow";
 import TableContetRow from "../TableContetRow/TableContetRow";
 
-const Table = ({ companiesData, displayNumber }) => {
+const Table = ({ companiesData }) => {
     const [sortProperty, changeSortProperty] = useState(null);
     const [sortDirection, changeSortDirection] = useState(null);
     const [filterPhrase, changeFiltePhrase] = useState(null);

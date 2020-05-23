@@ -33,6 +33,10 @@ const ClearButton = styled.div`
     padding: 2px 5px;
     color: white;
     cursor: pointer;
+    box-shadow: 2px 2px #aaaaaa;
+    &:hover {
+        transform: scale(1.1);
+    }
 `;
 
 const propertyNamesMap = {
