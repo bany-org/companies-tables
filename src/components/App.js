@@ -3,8 +3,6 @@ import axios from "axios";
 import styled from "styled-components";
 
 import Table from "./Table/Table";
-import PaginationBar from "./PaginationBar/PaginationBar";
-import TableHeader from "./TableHeader/TableHeader";
 
 const AppBody = styled.div`
     display: flex;
@@ -16,8 +14,6 @@ function App() {
     const [isLoading, changeLoading] = useState(true);
     const [companiesList, updateCompaniesList] = useState([]);
     const [companiesData, updateCompaniesData] = useState([]);
-    const [displayNumber, changeDisplayNumber] = useState(20);
-    // const [offset, changeOffset] = useState(0);
 
     useEffect(() => {
         changeLoading(true);
@@ -65,11 +61,6 @@ function App() {
                                     month === 0 // month === new Date().getMonth()
                                 ) {
                                     lastMonthIncome += parseFloat(income.value);
-                                    console.log(
-                                        "mapa",
-                                        lastMonthIncome,
-                                        income.value
-                                    );
                                 }
 
                                 return income.value;
@@ -104,6 +95,21 @@ function App() {
         <AppBody>
             {isLoading && <h1>loading</h1>}
             {!isLoading && <Table companiesData={companiesData} />}
+            <div>
+                <div>
+                    Icons made by{" "}
+                    <a
+                        href="https://www.flaticon.com/authors/freepik"
+                        title="Freepik"
+                    >
+                        Freepik
+                    </a>{" "}
+                    from{" "}
+                    <a href="https://www.flaticon.com/" title="Flaticon">
+                        www.flaticon.com
+                    </a>
+                </div>
+            </div>
         </AppBody>
     );
 }

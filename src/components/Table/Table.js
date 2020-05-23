@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 
 import PaginationBar from "../PaginationBar/PaginationBar";
 import TableHeader from "../TableHeader/TableHeader";
+import TableSortingRow from "../TableSortingRow/TableSortingRow";
+import TableFilteringRow from "../TableFilteringRow/TableFilteringRow";
+import TableContetRow from "../TableContetRow/TableContetRow";
 
 const Table = ({ companiesData, displayNumber }) => {
     const [sortProperty, changeSortProperty] = useState(null);
@@ -15,21 +18,19 @@ const Table = ({ companiesData, displayNumber }) => {
     );
 
     useEffect(() => {
-        let xxx = [...companiesData];
+        let updatedList = [...companiesData];
 
         if (filterProperty) {
-            xxx = xxx.filter(filterFunction);
+            updatedList = updatedList.filter(filterFunction);
         }
 
         if (sortProperty) {
-            xxx.sort(sortFunction);
+            updatedList.sort(sortFunction);
         }
 
-        changeFilteredCompaniesNumber(xxx.length);
+        changeFilteredCompaniesNumber(updatedList.length);
 
-        const aaa = xxx.slice(offset, offset + 20);
-
-        zmienFirmy(aaa);
+        zmienFirmy(updatedList.slice(offset, offset + 20));
     }, [filterPhrase, filterProperty, sortDirection, sortProperty, offset]);
 
     const filterFunction = (comp) => {
@@ -86,151 +87,33 @@ const Table = ({ companiesData, displayNumber }) => {
 
     return (
         <>
-            <TableHeader clear={clearFilters} />
+            <TableHeader
+                clear={clearFilters}
+                sortProp={sortProperty}
+                sortDir={sortDirection}
+                filterProp={filterProperty}
+                filterPhr={filterPhrase}
+            />
             <table>
                 <thead>
-                    <tr>
-                        <td>Lp</td>
-                        <td onClick={() => onSortChange("name")}>
-                            Name
-                            {sortProperty === "name" ? sortDirection : null}
-                        </td>
-                        <td onClick={() => onSortChange("city")}>
-                            City
-                            {sortProperty === "city" ? sortDirection : null}
-                        </td>
-                        <td onClick={() => onSortChange("totalIncome")}>
-                            Total Income
-                            {sortProperty === "totalIncome"
-                                ? sortDirection
-                                : null}
-                        </td>
-                        <td onClick={() => onSortChange("averageIncome")}>
-                            Average Income
-                            {sortProperty === "averageIncome"
-                                ? sortDirection
-                                : null}
-                        </td>
-                        <td onClick={() => onSortChange("lastMonthIncome")}>
-                            Last month income
-                            {sortProperty === "lastMonthIncome"
-                                ? sortDirection
-                                : null}
-                        </td>
-                        <td onClick={() => onSortChange("id")}>
-                            Id
-                            {sortProperty === "id" ? sortDirection : null}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <input
-                                type="text"
-                                onChange={(e) =>
-                                    onFilterChange(
-                                        "name",
-                                        e.target.value.toLowerCase()
-                                    )
-                                }
-                                value={
-                                    filterProperty !== "name"
-                                        ? ""
-                                        : filterPhrase
-                                }
-                            />
-                        </td>
-                        <td>
-                            <input
-                                type="text"
-                                onChange={(e) =>
-                                    onFilterChange(
-                                        "city",
-                                        e.target.value.toLowerCase()
-                                    )
-                                }
-                                value={
-                                    filterProperty !== "city"
-                                        ? ""
-                                        : filterPhrase
-                                }
-                            />
-                        </td>
-                        <td>
-                            <input
-                                type="text"
-                                onChange={(e) =>
-                                    onFilterChange(
-                                        "totalIncome",
-                                        e.target.value.toLowerCase()
-                                    )
-                                }
-                                value={
-                                    filterProperty !== "totalIncome"
-                                        ? ""
-                                        : filterPhrase
-                                }
-                            />
-                        </td>
-                        <td>
-                            <input
-                                type="text"
-                                onChange={(e) =>
-                                    onFilterChange(
-                                        "averageIncome",
-                                        e.target.value.toLowerCase()
-                                    )
-                                }
-                                value={
-                                    filterProperty !== "averageIncome"
-                                        ? ""
-                                        : filterPhrase
-                                }
-                            />
-                        </td>
-                        <td>
-                            <input
-                                type="text"
-                                onChange={(e) =>
-                                    onFilterChange(
-                                        "lastMonthIncome",
-                                        e.target.value.toLowerCase()
-                                    )
-                                }
-                                value={
-                                    filterProperty !== "lastMonthIncome"
-                                        ? ""
-                                        : filterPhrase
-                                }
-                            />
-                        </td>
-                        <td>
-                            <input
-                                type="text"
-                                onChange={(e) =>
-                                    onFilterChange(
-                                        "id",
-                                        e.target.value.toLowerCase()
-                                    )
-                                }
-                                value={
-                                    filterProperty !== "id" ? "" : filterPhrase
-                                }
-                            />
-                        </td>
-                    </tr>
+                    <TableSortingRow
+                        onSortChange={onSortChange}
+                        sortProperty={sortProperty}
+                        sortDirection={sortDirection}
+                    />
+                    <TableFilteringRow
+                        onFilterChange={onFilterChange}
+                        filterProperty={filterProperty}
+                        filterPhrase={filterPhrase}
+                    />
                 </thead>
                 <tbody>
                     {firmy.map((elem, index) => (
-                        <tr key={elem.id}>
-                            <td>{offset + index + 1}</td>
-                            <td>{elem.name}</td>
-                            <td>{elem.city}</td>
-                            <td>{elem.totalIncome}</td>
-                            <td>{elem.averageIncome}</td>
-                            <td>{elem.lastMonthIncome}</td>
-                            <td>{elem.id}</td>
-                        </tr>
+                        <TableContetRow
+                            company={elem}
+                            index={index}
+                            offset={offset}
+                        />
                     ))}
                 </tbody>
             </table>

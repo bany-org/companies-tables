@@ -3,16 +3,40 @@ import styled from "styled-components";
 
 const HeaderBody = styled.div`
     display: flex;
-    justify-content: left;
+    justify-content: space-around;
     background-color: lightblue;
     padding: 10px;
 `;
 
-const TableHeader = ({ clear }) => {
+const propertyNamesMap = {
+    name: "Name",
+    city: "City",
+    totalIncome: "Total Income",
+    averageIncome: "Average Income",
+    lastMonthIncome: "Last Month Income",
+    id: "Id",
+};
+
+const directionNamesMap = {
+    ASC: "Ascending",
+    DESC: "Descending",
+};
+
+const TableHeader = ({ clear, filterProp, filterPhr, sortProp, sortDir }) => {
     return (
         <HeaderBody>
-            Header
-            <button onClick={clear}> Clear filters</button>
+            <div>
+                <button onClick={clear}> Clear filters</button>
+            </div>
+            <div>
+                {filterProp &&
+                    filterPhr !== "" &&
+                    `Filter for "${filterPhr}" in "${propertyNamesMap[filterProp]}"`}
+            </div>
+            <div>
+                {sortProp &&
+                    `Sort ${directionNamesMap[sortDir]} in ${propertyNamesMap[sortProp]}`}
+            </div>
         </HeaderBody>
     );
 };
