@@ -63,13 +63,48 @@ const TableSortingRow = ({ onSortChange, sortProperty, sortDirection }) => {
                         ))}
                 </span>
             </DataCell>
-            <DataCell onClick={() => onSortChange("averageIncome")}>
-                Average Income
+            <DataCell
+                onClick={() => onSortChange("averageIncome")}
+                active={sortProperty === "averageIncome"}
+            >
+                <span>Average Income</span>
+                <span>
+                    {sortProperty === "averageIncome" &&
+                        (sortDirection === "ASC" ? (
+                            <AscendingIcon />
+                        ) : (
+                            <DescendingIcon />
+                        ))}
+                </span>
             </DataCell>
-            <DataCell onClick={() => onSortChange("lastMonthIncome")}>
-                Last month totalIncome
+            <DataCell
+                onClick={() => onSortChange("lastMonthIncome")}
+                active={sortProperty === "lastMonthIncome"}
+            >
+                <span>Last month totalIncome</span>
+                <span>
+                    {sortProperty === "lastMonthIncome" &&
+                        (sortDirection === "ASC" ? (
+                            <AscendingIcon />
+                        ) : (
+                            <DescendingIcon />
+                        ))}
+                </span>
             </DataCell>
-            <DataCell onClick={() => onSortChange("id")}>Id</DataCell>
+            <DataCell
+                onClick={() => onSortChange("id")}
+                active={sortProperty === "id"}
+            >
+                <span>Id</span>
+                <span>
+                    {sortProperty === "id" &&
+                        (sortDirection === "ASC" ? (
+                            <AscendingIcon />
+                        ) : (
+                            <DescendingIcon />
+                        ))}
+                </span>
+            </DataCell>
         </tr>
     );
 };
