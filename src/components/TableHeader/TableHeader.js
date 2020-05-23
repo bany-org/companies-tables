@@ -8,8 +8,13 @@ const HeaderBody = styled.div`
     padding: 10px;
 `;
 
-const TableHeader = () => {
-    return <HeaderBody>Header</HeaderBody>;
+const TableHeader = ({ clear }) => {
+    return (
+        <HeaderBody>
+            Header
+            <button onClick={clear}> Clear filters</button>
+        </HeaderBody>
+    );
 };
 
 export default TableHeader;

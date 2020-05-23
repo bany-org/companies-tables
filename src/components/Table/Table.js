@@ -6,8 +6,8 @@ import TableHeader from "../TableHeader/TableHeader";
 const Table = ({ companiesData, displayNumber }) => {
     const [sortProperty, changeSortProperty] = useState(null);
     const [sortDirection, changeSortDirection] = useState(null);
-    const [filterPhrase, changeFiltePhrase] = useState();
-    const [filterProperty, changeFilterProperty] = useState();
+    const [filterPhrase, changeFiltePhrase] = useState(null);
+    const [filterProperty, changeFilterProperty] = useState(null);
     const [firmy, zmienFirmy] = useState([...companiesData]);
     const [offset, changeOffset] = useState(0);
     const [filteredCompaniesNumber, changeFilteredCompaniesNumber] = useState(
@@ -76,11 +76,17 @@ const Table = ({ companiesData, displayNumber }) => {
         changeFiltePhrase(filterVal);
     };
 
-    console.log("firmy", firmy);
+    const clearFilters = () => {
+        changeOffset(0);
+        changeFilterProperty(null);
+        changeFiltePhrase(null);
+        changeSortDirection(null);
+        changeSortProperty(null);
+    };
 
     return (
         <>
-            <TableHeader />
+            <TableHeader clear={clearFilters} />
             <table>
                 <thead>
                     <tr>

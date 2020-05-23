@@ -26,6 +26,9 @@ const PaginationBar = ({ changeOffset, offset, itemsNumber }) => {
             <div>
                 Page:
                 {parseInt(offset / 20 + 1.5)}
+                of:
+                {Math.ceil(itemsNumber / 20)}
+                <br />
                 Results: {itemsNumber}
             </div>
             <button
