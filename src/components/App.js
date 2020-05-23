@@ -17,7 +17,7 @@ function App() {
     const [companiesList, updateCompaniesList] = useState([]);
     const [companiesData, updateCompaniesData] = useState([]);
     const [displayNumber, changeDisplayNumber] = useState(20);
-    const [offset, changeOffset] = useState(0);
+    // const [offset, changeOffset] = useState(0);
 
     useEffect(() => {
         changeLoading(true);
@@ -80,25 +80,8 @@ function App() {
 
     return (
         <AppBody>
-            <TableHeader
-                changeDisplayNumber={changeDisplayNumber}
-                displayNumber={displayNumber}
-            />
-
             {isLoading && <h1>loading</h1>}
-            {!isLoading && (
-                <Table
-                    companiesData={companiesData}
-                    offset={offset}
-                    displayNumber={displayNumber}
-                />
-            )}
-
-            <PaginationBar
-                changeOffset={changeOffset}
-                offset={offset}
-                itemsNumber={companiesData.length}
-            />
+            {!isLoading && <Table companiesData={companiesData} />}
         </AppBody>
     );
 }

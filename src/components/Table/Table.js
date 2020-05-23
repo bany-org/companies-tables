@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
 
-const Table = ({ companiesData, offset, displayNumber }) => {
+import PaginationBar from "../PaginationBar/PaginationBar";
+import TableHeader from "../TableHeader/TableHeader";
+
+const Table = ({ companiesData, displayNumber }) => {
     const [sortProperty, changeSortProperty] = useState(null);
     const [sortDirection, changeSortDirection] = useState(null);
     const [filterPhrase, changeFiltePhrase] = useState();
     const [filterProperty, changeFilterProperty] = useState();
     const [firmy, zmienFirmy] = useState([...companiesData]);
+    const [offset, changeOffset] = useState(0);
+    const [filteredCompaniesNumber, changeFilteredCompaniesNumber] = useState(
+        20
+    );
 
     useEffect(() => {
-        console.log("wejście do effect po sorcie");
-
         let xxx = [...companiesData];
 
         if (filterProperty) {
@@ -20,17 +25,19 @@ const Table = ({ companiesData, offset, displayNumber }) => {
             xxx.sort(sortFunction);
         }
 
-        const aaa = xxx.slice(offset, offset + displayNumber);
+        changeFilteredCompaniesNumber(xxx.length);
 
-        console.log("ile elementów", xxx.length);
+        const aaa = xxx.slice(offset, offset + 20);
+
+        console.log("aaaa", aaa);
 
         zmienFirmy(aaa);
     }, [filterPhrase, filterProperty, sortDirection, sortProperty, offset]);
 
     const filterFunction = (comp) => {
-        console.log("filtrowanie", comp, typeof filterPhrase, filterProperty);
+        console.log("filtrowanie", filterPhrase);
 
-        if (filterPhrase === 0 || filterPhrase === "") {
+        if (filterPhrase === "") {
             return true;
         }
 
@@ -39,7 +46,12 @@ const Table = ({ companiesData, offset, displayNumber }) => {
         }
 
         if (typeof filterPhrase === "string") {
-            return comp[filterProperty].toLowerCase().includes(filterPhrase);
+            return (
+                comp[filterProperty]
+                    .toString()
+                    // .toLowerCase()
+                    .includes(filterPhrase)
+            );
         }
     };
 
@@ -70,115 +82,151 @@ const Table = ({ companiesData, offset, displayNumber }) => {
     };
 
     const onFilterChange = (filterProp, filterVal) => {
+        changeOffset(0);
         changeFilterProperty(filterProp);
         changeFiltePhrase(filterVal);
     };
 
+    console.log("firmy", firmy);
+
     return (
-        <table>
-            <thead>
-                <tr>
-                    <td>Lp</td>
-                    <td onClick={() => onSortChange("name")}>
-                        Name
-                        {sortProperty === "name" ? sortDirection : null}
-                    </td>
-                    <td onClick={() => onSortChange("city")}>
-                        City
-                        {sortProperty === "city" ? sortDirection : null}
-                    </td>
-                    <td onClick={() => onSortChange("totalIncome")}>
-                        Total Income
-                        {sortProperty === "totalIncome" ? sortDirection : null}
-                    </td>
-                    <td onClick={() => onSortChange("averageIncome")}>
-                        Average Income
-                        {sortProperty === "averageIncome"
-                            ? sortDirection
-                            : null}
-                    </td>
-                    <td>Last month income</td>
-                    <td onClick={() => onSortChange("id")}>
-                        Id
-                        {sortProperty === "id" ? sortDirection : null}
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input
-                            type="text"
-                            onChange={(e) =>
-                                onFilterChange(
-                                    "name",
-                                    e.target.value.toLocaleLowerCase()
-                                )
-                            }
-                        />
-                    </td>
-                    <td>
-                        <input
-                            type="text"
-                            onChange={(e) =>
-                                onFilterChange(
-                                    "city",
-                                    e.target.value.toLocaleLowerCase()
-                                )
-                            }
-                        />
-                    </td>
-                    <td>
-                        <input
-                            type="text"
-                            onChange={(e) =>
-                                onFilterChange(
-                                    "totalIncome",
-                                    parseInt(e.target.value) || 0
-                                )
-                            }
-                        />
-                    </td>
-                    <td>
-                        <input
-                            type="text"
-                            onChange={(e) =>
-                                onFilterChange(
-                                    "averageIncome",
-                                    parseInt(e.target.value) || 0
-                                )
-                            }
-                        />
-                    </td>
-                    <td>
-                        <input type="text" />
-                    </td>
-                    <td>
-                        <input
-                            type="text"
-                            onChange={(e) =>
-                                onFilterChange(
-                                    "id",
-                                    parseInt(e.target.value) || 0
-                                )
-                            }
-                        />
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-                {firmy.map((elem, index) => (
-                    <tr key={elem.id}>
-                        <td>{offset + index + 1}</td>
-                        <td>{elem.name}</td>
-                        <td>{elem.city}</td>
-                        <td>{elem.totalIncome}</td>
-                        <td>{elem.averageIncome}</td>
-                        <td>TODO</td>
-                        <td>{elem.id}</td>
+        <>
+            <TableHeader />
+            <table>
+                <thead>
+                    <tr>
+                        <td>Lp</td>
+                        <td onClick={() => onSortChange("name")}>
+                            Name
+                            {sortProperty === "name" ? sortDirection : null}
+                        </td>
+                        <td onClick={() => onSortChange("city")}>
+                            City
+                            {sortProperty === "city" ? sortDirection : null}
+                        </td>
+                        <td onClick={() => onSortChange("totalIncome")}>
+                            Total Income
+                            {sortProperty === "totalIncome"
+                                ? sortDirection
+                                : null}
+                        </td>
+                        <td onClick={() => onSortChange("averageIncome")}>
+                            Average Income
+                            {sortProperty === "averageIncome"
+                                ? sortDirection
+                                : null}
+                        </td>
+                        <td>Last month income</td>
+                        <td onClick={() => onSortChange("id")}>
+                            Id
+                            {sortProperty === "id" ? sortDirection : null}
+                        </td>
                     </tr>
-                ))}
-            </tbody>
-        </table>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input
+                                type="text"
+                                onChange={(e) =>
+                                    onFilterChange(
+                                        "name",
+                                        e.target.value.toLowerCase()
+                                    )
+                                }
+                                value={
+                                    filterProperty !== "name"
+                                        ? ""
+                                        : filterPhrase
+                                }
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                onChange={(e) =>
+                                    onFilterChange(
+                                        "city",
+                                        e.target.value.toLowerCase()
+                                    )
+                                }
+                                value={
+                                    filterProperty !== "city"
+                                        ? ""
+                                        : filterPhrase
+                                }
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                onChange={(e) =>
+                                    onFilterChange(
+                                        "totalIncome",
+                                        e.target.value.toLowerCase()
+                                    )
+                                }
+                                value={
+                                    filterProperty !== "totalIncome"
+                                        ? ""
+                                        : filterPhrase
+                                }
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                onChange={(e) =>
+                                    onFilterChange(
+                                        "averageIncome",
+                                        e.target.value.toLowerCase()
+                                    )
+                                }
+                                value={
+                                    filterProperty !== "averageIncome"
+                                        ? ""
+                                        : filterPhrase
+                                }
+                            />
+                        </td>
+                        <td>
+                            <input type="text" />
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                onChange={(e) =>
+                                    onFilterChange(
+                                        "id",
+                                        e.target.value.toLowerCase()
+                                    )
+                                }
+                                value={
+                                    filterProperty !== "id" ? "" : filterPhrase
+                                }
+                            />
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {firmy.map((elem, index) => (
+                        <tr key={elem.id}>
+                            <td>{offset + index + 1}</td>
+                            <td>{elem.name}</td>
+                            <td>{elem.city}</td>
+                            <td>{elem.totalIncome}</td>
+                            <td>{elem.averageIncome}</td>
+                            <td>TODO</td>
+                            <td>{elem.id}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            <PaginationBar
+                changeOffset={changeOffset}
+                offset={offset}
+                itemsNumber={filteredCompaniesNumber}
+            />
+        </>
     );
 };
 
