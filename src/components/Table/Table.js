@@ -29,30 +29,19 @@ const Table = ({ companiesData, displayNumber }) => {
 
         const aaa = xxx.slice(offset, offset + 20);
 
-        console.log("aaaa", aaa);
-
         zmienFirmy(aaa);
     }, [filterPhrase, filterProperty, sortDirection, sortProperty, offset]);
 
     const filterFunction = (comp) => {
-        console.log("filtrowanie", filterPhrase);
-
         if (filterPhrase === "") {
             return true;
         }
 
-        if (typeof filterPhrase === "number") {
-            return parseInt(comp[filterProperty]) === filterPhrase;
-        }
+        return comp[filterProperty]
+            .toString()
+            .toLowerCase()
 
-        if (typeof filterPhrase === "string") {
-            return (
-                comp[filterProperty]
-                    .toString()
-                    // .toLowerCase()
-                    .includes(filterPhrase)
-            );
-        }
+            .includes(filterPhrase);
     };
 
     const sortFunction = (a, b) => {
@@ -215,7 +204,7 @@ const Table = ({ companiesData, displayNumber }) => {
                             <td>{elem.city}</td>
                             <td>{elem.totalIncome}</td>
                             <td>{elem.averageIncome}</td>
-                            <td>TODO</td>
+                            <td>{elem.lastMonthIncome}</td>
                             <td>{elem.id}</td>
                         </tr>
                     ))}

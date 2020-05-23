@@ -51,8 +51,29 @@ function App() {
                             (company) => company.id === elem.data.id
                         );
 
+                        let lastMonthIncome = 0;
+
                         const sumOfIncomes = elem.data.incomes
-                            .map((income) => income.value)
+                            .map((income) => {
+                                const data = new Date(income.date);
+
+                                const year = data.getFullYear();
+                                const month = data.getMonth();
+
+                                if (
+                                    year === new Date().getFullYear() &&
+                                    month === 0 // month === new Date().getMonth()
+                                ) {
+                                    lastMonthIncome += parseFloat(income.value);
+                                    console.log(
+                                        "mapa",
+                                        lastMonthIncome,
+                                        income.value
+                                    );
+                                }
+
+                                return income.value;
+                            })
                             .reduce(
                                 (prev, curr) =>
                                     parseFloat(prev) + parseFloat(curr)
@@ -63,6 +84,7 @@ function App() {
                             averageIncome: Number(
                                 sumOfIncomes / elem.data.incomes.length
                             ).toFixed(2),
+                            lastMonthIncome: Number(lastMonthIncome).toFixed(2),
                         });
 
                         return updated;
