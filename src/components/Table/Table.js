@@ -105,7 +105,12 @@ const Table = ({ companiesData, displayNumber }) => {
                                 ? sortDirection
                                 : null}
                         </td>
-                        <td>Last month income</td>
+                        <td onClick={() => onSortChange("lastMonthIncome")}>
+                            Last month income
+                            {sortProperty === "lastMonthIncome"
+                                ? sortDirection
+                                : null}
+                        </td>
                         <td onClick={() => onSortChange("id")}>
                             Id
                             {sortProperty === "id" ? sortDirection : null}
@@ -178,7 +183,20 @@ const Table = ({ companiesData, displayNumber }) => {
                             />
                         </td>
                         <td>
-                            <input type="text" />
+                            <input
+                                type="text"
+                                onChange={(e) =>
+                                    onFilterChange(
+                                        "lastMonthIncome",
+                                        e.target.value.toLowerCase()
+                                    )
+                                }
+                                value={
+                                    filterProperty !== "lastMonthIncome"
+                                        ? ""
+                                        : filterPhrase
+                                }
+                            />
                         </td>
                         <td>
                             <input
