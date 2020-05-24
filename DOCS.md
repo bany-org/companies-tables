@@ -21,13 +21,13 @@ Displayed data:
 
 Table functions:
 
-`Sorting` by all properties by clicking on property name.
+`Sorting` all properties by clicking on property name.
 
--   `First click` - enable ascending sort,
--   `second click` - enable descending sort,
+-   `First click` - enable ascending sort (from `a` to `z` or from smallest to largest number),
+-   `second click` - enable descending sort (from `z` to `a` or from largest to smallest number),
 -   `third click` - disable sort.
 
-`Filtering` by all properties by enter phrase into property search field.
+`Filtering` all properties by enter phrase into property search field.
 
 `Clear filters` - (header button) - clears all active sorting and filters.
 

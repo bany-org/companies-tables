@@ -47,7 +47,7 @@ const TableFilteringRow = ({
                         active={
                             filterProperty === "name" && filterPhrase !== ""
                         }
-                        placeholder="e.g. Hammes"
+                        placeholder=" e.g. Hammes"
                     />
                 </SearchField>
             </DataField>
@@ -59,7 +59,7 @@ const TableFilteringRow = ({
                     }
                     value={filterProperty !== "city" ? "" : filterPhrase}
                     active={filterProperty === "city" && filterPhrase !== ""}
-                    placeholder="e.g. East Rose"
+                    placeholder=" e.g. East Rose"
                 />
             </DataField>
             <DataField>
@@ -75,7 +75,7 @@ const TableFilteringRow = ({
                     active={
                         filterProperty === "totalIncome" && filterPhrase !== ""
                     }
-                    placeholder="e.g. 233050"
+                    placeholder=" e.g. 233050"
                 />
             </DataField>
             <DataField>
@@ -94,7 +94,7 @@ const TableFilteringRow = ({
                         filterProperty === "averageIncome" &&
                         filterPhrase !== ""
                     }
-                    placeholder="e.g. 4668"
+                    placeholder=" e.g. 4668"
                 />
             </DataField>
             <DataField>
@@ -113,7 +113,7 @@ const TableFilteringRow = ({
                         filterProperty === "lastMonthIncome" &&
                         filterPhrase !== ""
                     }
-                    placeholder="e.g. 9964"
+                    placeholder=" e.g. 9964"
                 />
             </DataField>
             <DataField>
@@ -124,7 +124,7 @@ const TableFilteringRow = ({
                     }
                     value={filterProperty !== "id" ? "" : filterPhrase}
                     active={filterProperty === "id" && filterPhrase !== ""}
-                    placeholder="e.g. 12"
+                    placeholder=" e.g. 12"
                 />
             </DataField>
         </tr>
