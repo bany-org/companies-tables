@@ -11,7 +11,7 @@ const Bar = styled.div`
 
 const Button = styled.button`
     background-color: lightgreen;
-    border-radius: 5px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,6 +21,20 @@ const Button = styled.button`
     &:hover {
         background-color: green;
     }
+    box-shadow: 2px 2px #aaaaaa;
+`;
+
+const Info = styled.div`
+    background-color: lightslategrey;
+    border-radius: 10px;
+    border: 2px solid gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    padding: 5px 10px;
+    margin: 5px;
     box-shadow: 2px 2px #aaaaaa;
 `;
 
@@ -39,12 +53,13 @@ const PaginationBar = ({ changeOffset, offset, itemsNumber }) => {
             >
                 {"< Prev"}
             </Button>
-            <div>
-                Page:
-                {parseInt(offset / 20 + 1.5)}/{Math.ceil(itemsNumber / 20)}
-                <br />
-                Results: {itemsNumber}
-            </div>
+            <Info>
+                <span>
+                    Page:
+                    {parseInt(offset / 20 + 1.5)}/{Math.ceil(itemsNumber / 20)}
+                </span>
+                <span>Results: {itemsNumber}</span>
+            </Info>
             <Button
                 onClick={() => changeOffset(offset + 20)}
                 disabled={offset >= itemsNumber - 20 ? true : false}

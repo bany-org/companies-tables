@@ -23,6 +23,7 @@ const Info = styled.div`
     display: flex;
     align-items: center;
     margin-left: 10px;
+    word-break: break-all;
 `;
 
 const ClearButton = styled.div`
@@ -31,13 +32,23 @@ const ClearButton = styled.div`
     border-radius: 10px;
     border: solid darkgoldenrod 1px;
     background-color: orange;
-    padding: 2px 5px;
+    padding: 5px 8px;
     color: white;
     cursor: pointer;
     box-shadow: 2px 2px #aaaaaa;
     &:hover {
         transform: scale(1.1);
     }
+`;
+
+const Wrapper = styled.div`
+    border-radius: 10px;
+    border: solid darkgoldenrod 1px;
+    background-color: orange;
+    display: flex;
+    padding: 5px 8px;
+    font-weight: 600;
+    box-shadow: 2px 2px #aaaaaa;
 `;
 
 const TableHeader = ({ clear, filterProp, filterPhr, sortProp, sortDir }) => {
@@ -50,26 +61,30 @@ const TableHeader = ({ clear, filterProp, filterPhr, sortProp, sortDir }) => {
                 </ClearButton>
             </HeaderElement>
             <HeaderElement>
-                <LoupIcon />
-                <Info>
-                    Filter: {!filterPhr && "none"}
-                    {filterProp &&
-                        filterPhr !== "" &&
-                        `"${filterPhr}" in "${PROPERTIES_NAMES_MAP[filterProp]}"`}
-                </Info>
+                <Wrapper>
+                    <LoupIcon />
+                    <Info>
+                        {!filterPhr && "Filter: none"}
+                        {filterProp &&
+                            filterPhr !== "" &&
+                            `Filter: "${filterPhr}" in "${PROPERTIES_NAMES_MAP[filterProp]}"`}
+                    </Info>
+                </Wrapper>
             </HeaderElement>
             <HeaderElement>
-                <DescendingIcon />
-                <Info>
-                    Sort: {!sortProp && "none"}
-                    {sortProp && (
-                        <>
-                            <span>
-                                {`${DIRECTION_NAMES_MAP[sortDir]} in ${PROPERTIES_NAMES_MAP[sortProp]}`}
-                            </span>
-                        </>
-                    )}
-                </Info>
+                <Wrapper>
+                    <DescendingIcon />
+                    <Info>
+                        {!sortProp && "Sort: none"}
+                        {sortProp && (
+                            <>
+                                <span>
+                                    {`Sort: ${DIRECTION_NAMES_MAP[sortDir]} in ${PROPERTIES_NAMES_MAP[sortProp]}`}
+                                </span>
+                            </>
+                        )}
+                    </Info>
+                </Wrapper>
             </HeaderElement>
         </HeaderBody>
     );
