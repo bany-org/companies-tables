@@ -26,9 +26,15 @@ const TableContetRow = ({ company, index, offset }) => {
             <IdCell>{offset + index + 1}</IdCell>
             <DataCell>{company.name}</DataCell>
             <DataCell>{company.city}</DataCell>
-            <NumberDataCell>{company.totalIncome}</NumberDataCell>
-            <NumberDataCell>{company.averageIncome}</NumberDataCell>
-            <NumberDataCell>{company.lastMonthIncome}</NumberDataCell>
+            <NumberDataCell>
+                {Number(company.totalIncome).toFixed(2)}
+            </NumberDataCell>
+            <NumberDataCell>
+                {Number(company.averageIncome).toFixed(2)}
+            </NumberDataCell>
+            <NumberDataCell>
+                {Number(company.lastMonthIncome).toFixed(2)}
+            </NumberDataCell>
             <NumberDataCell>{company.id}</NumberDataCell>
         </tr>
     );

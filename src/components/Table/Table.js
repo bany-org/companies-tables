@@ -23,6 +23,7 @@ const Table = ({ companiesData }) => {
         if (filterProperty) {
             updatedList = updatedList.filter(filterFunction);
         }
+        console.log("na tym będzie sortowanie", updatedList);
 
         if (sortProperty) {
             updatedList.sort(sortFunction);
@@ -41,7 +42,6 @@ const Table = ({ companiesData }) => {
         return comp[filterProperty]
             .toString()
             .toLowerCase()
-
             .includes(filterPhrase);
     };
 
@@ -113,6 +113,7 @@ const Table = ({ companiesData }) => {
                             company={elem}
                             index={index}
                             offset={offset}
+                            key={elem.id}
                         />
                     ))}
                 </tbody>

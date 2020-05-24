@@ -57,7 +57,6 @@ function App() {
                         const sumOfIncomes = elem.data.incomes
                             .map((income) => {
                                 const data = new Date(income.date);
-
                                 const year = data.getFullYear();
                                 const month = data.getMonth();
 
@@ -68,20 +67,27 @@ function App() {
                                     lastMonthIncome += parseFloat(income.value);
                                 }
 
-                                return income.value;
+                                return parseFloat(income.value);
                             })
-                            .reduce(
-                                (prev, curr) =>
-                                    parseFloat(prev) + parseFloat(curr)
-                            );
+                            .reduce((prev, curr) => prev + curr);
+
+                        console.log("suma", Number(sumOfIncomes.toFixed(2)));
 
                         const updated = Object.assign(companyToUpdate, {
-                            totalIncome: Number(sumOfIncomes).toFixed(2),
+                            totalIncome: Number(sumOfIncomes.toFixed(2)),
                             averageIncome: Number(
-                                sumOfIncomes / elem.data.incomes.length
-                            ).toFixed(2),
-                            lastMonthIncome: Number(lastMonthIncome).toFixed(2),
+                                (
+                                    sumOfIncomes / elem.data.incomes.length
+                                ).toFixed(2)
+                            ),
+                            lastMonthIncome: Number(lastMonthIncome.toFixed(2)),
                         });
+
+                        // console.log(
+                        //     "updated comp",
+                        //     updated,
+                        //     typeof updated.totalIncome
+                        // );
 
                         return updated;
                     });
