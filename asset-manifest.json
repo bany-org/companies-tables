@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/companies-tables/static/js/main.5db8071a.chunk.js",
-    "main.js.map": "/companies-tables/static/js/main.5db8071a.chunk.js.map",
+    "main.js": "/companies-tables/static/js/main.bfb284cf.chunk.js",
+    "main.js.map": "/companies-tables/static/js/main.bfb284cf.chunk.js.map",
     "runtime-main.js": "/companies-tables/static/js/runtime-main.5ac22aeb.js",
     "runtime-main.js.map": "/companies-tables/static/js/runtime-main.5ac22aeb.js.map",
     "static/js/2.4a2f2419.chunk.js": "/companies-tables/static/js/2.4a2f2419.chunk.js",
     "static/js/2.4a2f2419.chunk.js.map": "/companies-tables/static/js/2.4a2f2419.chunk.js.map",
     "index.html": "/companies-tables/index.html",
-    "precache-manifest.c6dc8df041a96bbbecf2a831bfe8ae07.js": "/companies-tables/precache-manifest.c6dc8df041a96bbbecf2a831bfe8ae07.js",
+    "precache-manifest.0df710e2e8b332e6aa07bedd2a8fe08b.js": "/companies-tables/precache-manifest.0df710e2e8b332e6aa07bedd2a8fe08b.js",
     "service-worker.js": "/companies-tables/service-worker.js",
     "static/js/2.4a2f2419.chunk.js.LICENSE.txt": "/companies-tables/static/js/2.4a2f2419.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.5ac22aeb.js",
     "static/js/2.4a2f2419.chunk.js",
-    "static/js/main.5db8071a.chunk.js"
+    "static/js/main.bfb284cf.chunk.js"
   ]
 }
