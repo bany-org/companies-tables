@@ -1,15 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import AscendingIcon from "../assets/AscendingIcon/AscendingIcon";
 import DescendingIcon from "../assets/DescendingIcon/DescendingIcon";
 import LoupIcon from "../assets/LoupIcon/LoupIcon";
 import ClearIcon from "../assets/ClearIcon/ClearIcon";
+import { PROPERTIES_NAMES_MAP, DIRECTION_NAMES_MAP } from "../constants";
 
 const HeaderBody = styled.div`
     display: flex;
     justify-content: space-around;
     background-color: lightblue;
     padding: 10px;
+    border-radius: 10px;
 `;
 
 const HeaderElement = styled.div`
@@ -39,20 +40,6 @@ const ClearButton = styled.div`
     }
 `;
 
-const propertyNamesMap = {
-    name: "Name",
-    city: "City",
-    totalIncome: "Total Income",
-    averageIncome: "Average Income",
-    lastMonthIncome: "Last Month Income",
-    id: "Id",
-};
-
-const directionNamesMap = {
-    ASC: "Ascending",
-    DESC: "Descending",
-};
-
 const TableHeader = ({ clear, filterProp, filterPhr, sortProp, sortDir }) => {
     return (
         <HeaderBody>
@@ -68,7 +55,7 @@ const TableHeader = ({ clear, filterProp, filterPhr, sortProp, sortDir }) => {
                     Filter: {!filterPhr && "none"}
                     {filterProp &&
                         filterPhr !== "" &&
-                        `"${filterPhr}" in "${propertyNamesMap[filterProp]}"`}
+                        `"${filterPhr}" in "${PROPERTIES_NAMES_MAP[filterProp]}"`}
                 </Info>
             </HeaderElement>
             <HeaderElement>
@@ -78,7 +65,7 @@ const TableHeader = ({ clear, filterProp, filterPhr, sortProp, sortDir }) => {
                     {sortProp && (
                         <>
                             <span>
-                                {`${directionNamesMap[sortDir]} in ${propertyNamesMap[sortProp]}`}
+                                {`${DIRECTION_NAMES_MAP[sortDir]} in ${PROPERTIES_NAMES_MAP[sortProp]}`}
                             </span>
                         </>
                     )}

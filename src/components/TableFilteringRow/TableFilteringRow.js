@@ -9,6 +9,7 @@ const SearchField = styled.div`
 
 const InputField = styled.input`
     border: solid 1px red;
+    border-radius: 5px;
     width: 100%;
     background-color: ${(props) => (props.active ? "pink" : "")};
     &:hover {

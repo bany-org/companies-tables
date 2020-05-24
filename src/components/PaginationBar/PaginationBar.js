@@ -6,6 +6,7 @@ const Bar = styled.div`
     justify-content: space-around;
     background-color: lightblue;
     padding: 10px;
+    border-radius: 10px;
 `;
 
 const Button = styled.button`

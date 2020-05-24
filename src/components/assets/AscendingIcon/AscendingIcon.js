@@ -12,7 +12,7 @@ const AscendingIcon = () => {
             width="16px"
             height="16px"
             viewBox="0 0 512 512"
-            style={{ "enable-background": "new 0 0 512 512" }}
+            style={{ enableBackground: "new 0 0 512 512" }}
             space="preserve"
         >
             <circle style={{ fill: "#005C83" }} cx="256" cy="256" r="256" />
