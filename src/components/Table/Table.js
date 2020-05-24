@@ -23,7 +23,6 @@ const Table = ({ companiesData }) => {
         if (filterProperty) {
             updatedList = updatedList.filter(filterFunction);
         }
-        console.log("na tym będzie sortowanie", updatedList);
 
         if (sortProperty) {
             updatedList.sort(sortFunction);

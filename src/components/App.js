@@ -71,8 +71,6 @@ function App() {
                             })
                             .reduce((prev, curr) => prev + curr);
 
-                        console.log("suma", Number(sumOfIncomes.toFixed(2)));
-
                         const updated = Object.assign(companyToUpdate, {
                             totalIncome: Number(sumOfIncomes.toFixed(2)),
                             averageIncome: Number(
@@ -82,13 +80,6 @@ function App() {
                             ),
                             lastMonthIncome: Number(lastMonthIncome.toFixed(2)),
                         });
-
-                        // console.log(
-                        //     "updated comp",
-                        //     updated,
-                        //     typeof updated.totalIncome
-                        // );
-
                         return updated;
                     });
 
@@ -104,9 +95,33 @@ function App() {
 
     return (
         <AppBody>
-            {isLoading && <h1>loading</h1>}
+            {isLoading && <h1>loading data</h1>}
             {!isLoading && <Table companiesData={companiesData} />}
             <div>
+                <hr />
+                <div>
+                    <div>Author: Jakub Banasiak</div>
+                    <div>
+                        About me on:
+                        <a
+                            href="https://www.linkedin.com/in/jakbanasiak/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            LinkedIn
+                        </a>
+                    </div>
+                    <div>
+                        This projects on:
+                        <a
+                            href="https://github.com/bany-org/companies-tables"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Github
+                        </a>
+                    </div>
+                </div>
                 <div>
                     Icons made by{" "}
                     <a
